@@ -22,12 +22,20 @@ class VectorStore:
                  persist_dir: str = None):
         self.persist_dir = str(persist_dir or CHROMA_DIR)
         self.collection_name = collection_name
+        self._persistent = True
 
-        # 初始化 ChromaDB 客户端
-        self.client = chromadb.PersistentClient(
-            path=self.persist_dir,
-            settings=Settings(anonymized_telemetry=False)
-        )
+        # 初始化 ChromaDB 客户端（持久化失败则回退到内存模式）
+        try:
+            self.client = chromadb.PersistentClient(
+                path=self.persist_dir,
+                settings=Settings(anonymized_telemetry=False)
+            )
+        except Exception as e:
+            print(f"Warning: PersistentClient failed ({e}), using EphemeralClient instead")
+            self.client = chromadb.EphemeralClient(
+                settings=Settings(anonymized_telemetry=False)
+            )
+            self._persistent = False
 
         # 获取或创建集合
         self.collection = self.client.get_or_create_collection(
