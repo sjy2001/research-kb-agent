@@ -170,13 +170,15 @@ class ResearchKnowledgeBaseAgent:
     # ============ 问答 ============
 
     def query(self, question: str,
-              chat_history: List[Dict] = None) -> Dict[str, Any]:
+              chat_history: List[Dict] = None,
+              return_retrieval_details: bool = True) -> Dict[str, Any]:
         """
         回答用户问题
 
         Args:
             question: 用户问题
             chat_history: 对话历史
+            return_retrieval_details: 是否返回检索过程详情
 
         Returns:
             回答结果，包含答案和来源
@@ -186,9 +188,32 @@ class ResearchKnowledgeBaseAgent:
 
         # 2. 混合检索（用扩展后的第一个查询）
         all_docs = []
+        retrieval_details = {
+            "expanded_queries": expanded_queries,
+            "vector_results": [],
+            "bm25_results": [],
+            "fused_results": [],
+            "reranked_results": [],
+        }
+
         for q in expanded_queries[:2]:  # 最多用2个查询
+            # 分别获取向量和BM25结果（用于可视化）
+            query_emb = self.embedder.embed_single(q)
+            vector_docs = self.vector_store.search(query_emb, top_k=10)
+            bm25_docs = self.bm25_retriever.search(q, top_k=10)
+
+            # 混合检索（带重排序）
             docs = self.retriever.retrieve(q, top_k=5)
             all_docs.extend(docs)
+
+            # 记录第一次查询的详情用于展示
+            if not retrieval_details["vector_results"]:
+                retrieval_details["vector_results"] = vector_docs[:5]
+                retrieval_details["bm25_results"] = bm25_docs[:5]
+                # RRF融合后的结果（无重排序）
+                fused = self.retriever.retrieve(q, top_k=5, use_rerank=False)
+                retrieval_details["fused_results"] = fused
+                retrieval_details["reranked_results"] = docs
 
         # 去重
         seen_ids = set()
@@ -230,12 +255,17 @@ class ResearchKnowledgeBaseAgent:
         # 6. 整理来源
         sources = self._format_sources(unique_docs)
 
-        return {
+        result = {
             "answer": response.content,
             "sources": sources,
             "retrieved_count": len(unique_docs),
             "expanded_queries": expanded_queries,
         }
+
+        if return_retrieval_details:
+            result["retrieval_details"] = retrieval_details
+
+        return result
 
     def _build_context(self, docs: List[Dict[str, Any]]) -> str:
         """构建检索上下文"""

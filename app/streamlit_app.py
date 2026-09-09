@@ -134,6 +134,85 @@ if prompt := st.chat_input("输入你的问题，例如：这篇论文的核心�
                             f"- 相关度: {source['relevance_score']}"
                         )
 
+            # 检索过程可视化
+            if result.get("retrieval_details"):
+                with st.expander("🔍 检索过程详情", expanded=False):
+                    details = result["retrieval_details"]
+
+                    # 查询扩展
+                    if details.get("expanded_queries"):
+                        st.markdown("**📝 查询扩展**")
+                        cols = st.columns(len(details["expanded_queries"]))
+                        for i, q in enumerate(details["expanded_queries"]):
+                            cols[i].info(q)
+
+                    st.markdown("---")
+
+                    # 三列对比：向量、BM25、RRF融合
+                    col1, col2, col3 = st.columns(3)
+
+                    with col1:
+                        st.markdown("**🎯 向量检索 Top-5**")
+                        for i, doc in enumerate(details.get("vector_results", [])[:5], 1):
+                            score = doc.get("score", 0)
+                            meta = doc.get("metadata", {})
+                            with st.container(border=True):
+                                st.markdown(f"**#{i}** | 相似度: `{score:.4f}`")
+                                st.caption(f"📄 {meta.get('paper_title', '?')[:30]}")
+                                st.text(doc.get("text", "")[:80] + "...")
+
+                    with col2:
+                        st.markdown("**🔑 BM25 检索 Top-5**")
+                        for i, doc in enumerate(details.get("bm25_results", [])[:5], 1):
+                            score = doc.get("score", 0)
+                            meta = doc.get("metadata", {})
+                            with st.container(border=True):
+                                st.markdown(f"**#{i}** | BM25: `{score:.2f}`")
+                                st.caption(f"📄 {meta.get('paper_title', '?')[:30]}")
+                                st.text(doc.get("text", "")[:80] + "...")
+
+                    with col3:
+                        st.markdown("**🔀 RRF 融合 Top-5**")
+                        for i, doc in enumerate(details.get("fused_results", [])[:5], 1):
+                            score = doc.get("fusion_score", doc.get("score", 0))
+                            meta = doc.get("metadata", {})
+                            with st.container(border=True):
+                                st.markdown(f"**#{i}** | 融合分: `{score:.4f}`")
+                                st.caption(f"📄 {meta.get('paper_title', '?')[:30]}")
+                                st.text(doc.get("text", "")[:80] + "...")
+
+                    st.markdown("---")
+
+                    # 重排序前后对比
+                    st.markdown("**🎯 重排序效果对比**")
+                    fused = details.get("fused_results", [])[:5]
+                    reranked = details.get("reranked_results", [])[:5]
+
+                    comparison_data = []
+                    for i in range(max(len(fused), len(reranked))):
+                        f_title = fused[i]["metadata"].get("paper_title", "?")[:25] if i < len(fused) else "-"
+                        f_score = fused[i].get("fusion_score", 0) if i < len(fused) else 0
+                        r_title = reranked[i]["metadata"].get("paper_title", "?")[:25] if i < len(reranked) else "-"
+                        r_score = reranked[i].get("rerank_score", 0) if i < len(reranked) else 0
+                        changed = "🔄" if f_title != r_title else "✓"
+                        comparison_data.append({
+                            "排名": f"#{i+1}",
+                            "重排序前": f"{f_title} ({f_score:.3f})",
+                            "重排序后": f"{r_title} ({r_score:.3f})",
+                            "变化": changed,
+                        })
+
+                    st.dataframe(comparison_data, use_container_width=True, hide_index=True)
+
+                    # 最终用于生成答案的片段
+                    st.markdown("---")
+                    st.markdown("**📖 最终用于生成答案的片段**")
+                    for i, doc in enumerate(reranked[:3], 1):
+                        meta = doc.get("metadata", {})
+                        with st.container(border=True):
+                            st.markdown(f"**片段 {i}** | {meta.get('paper_title', '?')}")
+                            st.text(doc.get("text", "")[:200])
+
     # 添加助手消息
     st.session_state.chat_history.append({
         "role": "assistant",
