@@ -1,0 +1,66 @@
+Graph of Thoughts: Solving Elaborate Problems with Large Language Models
+Authors: Maciej Besta, Nils Blach, Ales Kubicek, Robert Gerstenberger, Lukas Gianinazzi, Joanna Gajda, Tomasz Lehmann, Hubert Niewiadomski, Piotr Nyczyk, Torsten Hoefler
+Published: AAAI 2024
+
+Abstract:
+We introduce Graph of Thoughts (GoT), a framework that advances prompting capabilities in large language models beyond those offered by Chain-of-Thought or Tree of Thoughts. GoT enables modeling of information as an arbitrary graph, which provides several advantages: thoughts can be combined, decomposed, and refined, leading to more powerful and flexible reasoning.
+
+Core Method:
+Graph of Thoughts (GoT) is a prompting framework that represents reasoning as a graph structure, generalizing both Chain-of-Thought (linear) and Tree of Thoughts (hierarchical).
+
+Key Concepts:
+1. Thoughts as Graph Nodes:
+   - Each thought is a node in a graph
+   - Thoughts can be partial solutions, ideas, or reasoning steps
+   - Nodes can have arbitrary connections to other nodes
+
+2. Graph Operations:
+   - Aggregation: combine multiple thoughts into one
+   - Refinement: improve an existing thought
+   - Generation: create new thoughts from existing ones
+   - Decomposition: break a thought into sub-thoughts
+
+3. Scoring and Ranking:
+   - Each thought can be scored by the LLM
+   - Scores guide which thoughts to explore further
+   - The best thoughts are selected for output
+
+4. Graph Structure Advantages:
+   - Unlike trees, graphs allow cycles and merging
+   - Multiple reasoning paths can converge
+   - Ideas from different branches can be combined
+   - This mirrors how humans actually think - combining ideas
+
+The GoT Framework:
+- Problem decomposition into thought units
+- Graph construction through LLM operations
+- Scoring and validation of thoughts
+- Extraction of the best solution(s)
+
+Comparison to Other Methods:
+- Chain-of-Thought: linear, single path
+- Tree of Thoughts: hierarchical, branches but no merging
+- Graph of Thoughts: arbitrary graph, supports merging and cycles
+
+Why GoT is More Powerful:
+- Can combine insights from multiple reasoning paths
+- Supports iterative refinement of ideas
+- Enables more complex problem decomposition
+- Better handles tasks with interdependent subtasks
+- More flexible representation of thought processes
+
+Experiments:
+GoT was evaluated on various tasks:
+- Sorting: Achieved 70% improvement over ToT in correctness
+- Keyword counting: More accurate and consistent results
+- Set intersection: Better handling of complex set operations
+- Document merging: Produced higher quality merged documents
+- The graph structure enabled combining partial solutions effectively
+
+Key Findings:
+- Graph structure provides significant advantages over tree structure
+- Aggregation of thoughts improves solution quality
+- The framework is general and applicable to many task types
+- GoT demonstrates that more complex reasoning structures help LLMs
+- The approach can be seen as extending search over reasoning spaces
+- GoT opens new possibilities for LLM reasoning architectures

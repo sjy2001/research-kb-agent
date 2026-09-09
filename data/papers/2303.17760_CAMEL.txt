@@ -1,0 +1,56 @@
+CAMEL: Communicative Agents for Mind Exploration of Large Language Model Society
+Authors: Guohao Li, Hasan Abed Al Kader Hammoud, Hani Itani, Dmitrii Khizbullin, Yining Wang, Jiri Hron, Faisal Shboul, Mohammad Tuqan, Arsalan Ansari, Bernard Ghanem
+Published: NeurIPS 2023
+
+Abstract:
+The rapid advancement of large language models has led to growing interest in autonomous agents and their potential to solve complex tasks. However, developing agents that can effectively collaborate and communicate remains a challenge. In this paper, we propose CAMEL (Communicative Agents for Mind Exploration), a framework that enables communicative agents to collaborate and explore the capabilities of large language models.
+
+Core Method:
+CAMEL is a framework for studying multi-agent collaboration through role-playing communication. The key innovation is the "Inception Prompting" technique that enables agents to assume specific roles and collaborate effectively.
+
+Key Components:
+1. Role-Playing Framework:
+   - AI Assistant: helps the AI User complete tasks
+   - AI User: gives instructions to the AI Assistant
+   - Task Specifier: clarifies and specifies the task
+   - Each agent has a distinct role and perspective
+
+2. Inception Prompting:
+   - A technique to assign roles and set the stage for collaboration
+   - The prompt establishes the relationship between agents
+   - Includes role definitions, communication protocols, and constraints
+   - Ensures agents stay in character and collaborate productively
+
+3. Communication Protocol:
+   - Structured message format for agent interaction
+   - Each message includes role, content, and instructions
+   - Agents take turns responding to each other
+   - The conversation continues until task completion
+
+4. Task Specification:
+   - A Task Specifier agent expands high-level ideas into detailed tasks
+   - Translates vague requirements into concrete objectives
+   - Ensures both agents share a common understanding
+
+Agent Societies:
+CAMEL explores different agent society configurations:
+- AI Society: collaboration between AI Assistant and AI User
+- Code Society: specialized agents for software development
+- Misalignment Society: studying potential misalignment scenarios
+- Domain-specific societies: medicine, law, education, etc.
+
+Experiments:
+CAMEL was evaluated on various collaborative tasks:
+- Successfully completed complex tasks through agent collaboration
+- Demonstrated emergent problem-solving capabilities
+- Showed that role-playing enables effective division of labor
+- The framework revealed both capabilities and limitations of LLM agents
+- Provided insights into agent communication patterns and failure modes
+
+Key Findings:
+- Inception prompting is effective for establishing productive agent collaboration
+- Role-playing enables agents to leverage different perspectives
+- Multi-agent communication can lead to emergent capabilities
+- The framework is useful for studying LLM capabilities and limitations
+- CAMEL provides a testbed for exploring agent society dynamics
+- The approach can be extended to various domains and task types

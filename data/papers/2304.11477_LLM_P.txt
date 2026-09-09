@@ -1,0 +1,61 @@
+LLM+P: Empowering Large Language Models with Optimal Planning Proficiency
+Authors: Bo Liu, Yuqian Jiang, Xiaohan Zhang, Qiang Liu, Shiqi Zhang, Joydeep Biswas, Peter Stone
+Published: CoRL 2023
+
+Abstract:
+Large language models have demonstrated remarkable zero-shot generalization abilities across a variety of domains. However, their proficiency in planning is still limited compared to specialized planners. In this paper, we introduce LLM+P, a framework that combines the strengths of LLMs and classical planners. LLM+P takes a natural language problem description, converts it into a formal planning domain definition, and then uses a classical planner to find the optimal solution.
+
+Core Method:
+LLM+P is a framework that augments large language models with classical planning capabilities. It addresses the limitation that LLMs often produce suboptimal or invalid plans for complex planning problems.
+
+The LLM+P Pipeline:
+1. Natural Language Input:
+   - User provides a planning problem in natural language
+   - Includes initial state, goal state, and available actions
+   - Example: "There are three blocks A, B, C. A is on B, B is on C. Move A to C."
+
+2. Translation to PDDL:
+   - The LLM translates the natural language description into PDDL (Planning Domain Definition Language)
+   - Generates both the domain file (actions, predicates) and problem file (initial state, goal)
+   - This is the key step - formalizing the problem for a planner
+
+3. Classical Planning:
+   - A PDDL planner (e.g., Fast Downward) takes the formal definition
+   - Finds an optimal or valid plan
+   - The planner guarantees correctness and optimality
+   - This step is deterministic and reliable
+
+4. Translation Back to Natural Language:
+   - The plan is translated back into natural language
+   - The LLM explains the solution in human-readable form
+   - Provides step-by-step instructions
+
+Key Features:
+- Combines LLM language understanding with planner optimality
+- Leverages decades of research in classical planning
+- Guarantees correct and optimal plans
+- Handles complex planning problems that LLMs struggle with
+- The LLM serves as a translator, not a planner
+
+Why LLM+P is Better than LLM-only:
+- LLMs often hallucinate invalid actions or states
+- LLMs may produce plans that don't achieve the goal
+- LLMs don't guarantee optimality
+- Classical planners provide formal guarantees
+- The combination is more reliable than either alone
+
+Experiments:
+LLM+P was evaluated on planning benchmarks:
+- Blocksworld: LLM+P achieved 96% success vs 58% for LLM-only
+- Logistics: LLM+P achieved 88% success vs 42% for LLM-only
+- Depot: LLM+P achieved 82% success vs 38% for LLM-only
+- The plans from LLM+P were optimal or near-optimal
+- LLM-only often produced invalid or suboptimal plans
+
+Key Findings:
+- LLMs are good at understanding natural language but bad at planning
+- Classical planners are good at planning but require formal input
+- Combining them gives the best of both worlds
+- The translation step is critical and works well with current LLMs
+- LLM+P demonstrates the value of integrating symbolic AI with neural methods
+- The approach can be extended to other formal reasoning domains

@@ -1,0 +1,67 @@
+TaskMatrix.AI: Completing Tasks by Connecting Foundation Models with Millions of APIs
+Authors: Yaobo Liang, Lei Ji, Chenfei Wu, Wenshan Wu, Lu Yuan, Yiwu Dai, Yang Ou, Shaoguang Mao, Yunong Jiao, Zehui Lin, et al.
+Published: 2023
+
+Abstract:
+Artificial Intelligence has been dominated by foundation models in recent years. However, foundation models alone cannot complete many tasks that require interaction with digital devices or services. In this paper, we propose TaskMatrix.AI, a new AI ecosystem that connects foundation models with millions of existing models and APIs to complete various tasks.
+
+Core Method:
+TaskMatrix.AI is a framework that connects foundation models with existing APIs and services to accomplish complex tasks. It positions the foundation model as a central controller that can invoke specialized tools.
+
+Architecture:
+TaskMatrix.AI consists of four key components:
+
+1. Multimodal Conversational Foundation Model (MCFM):
+   - The central controller that understands user intent
+   - Supports text, image, audio, and video inputs
+   - Generates plans and selects appropriate APIs
+   - Communicates with users in natural language
+
+2. API Platform:
+   - A repository of millions of existing APIs and models
+   - Each API has a natural language description
+   - APIs are categorized by domain and functionality
+   - Includes both cloud services and local models
+   - Examples: Office APIs, image generation, speech recognition, search
+
+3. API Selector:
+   - Matches task requirements to available APIs
+   - Uses semantic search over API descriptions
+   - Selects the most appropriate APIs for each subtask
+   - Can combine multiple APIs for complex tasks
+
+4. Action Executor:
+   - Executes selected APIs with correct parameters
+   - Handles API responses and errors
+   - Passes results between APIs in multi-step tasks
+   - Reports progress and final results to the user
+
+The Task Execution Flow:
+1. User provides a task in natural language (with optional media)
+2. MCFM understands the task and decomposes it into subtasks
+3. API Selector finds appropriate APIs for each subtask
+4. Action Executor calls APIs in the correct order
+5. Results are collected and integrated
+6. MCFM generates a natural language response
+
+Key Features:
+- Connects foundation models to real-world services
+- Leverages millions of existing APIs without retraining
+- Supports multimodal inputs and outputs
+- Can handle complex, multi-step tasks
+- The API platform is extensible - new APIs can be added easily
+
+Task Domains:
+- Office automation: Word, Excel, PowerPoint manipulation
+- Multimedia creation: image, audio, video generation and editing
+- Information retrieval: search, question answering, data lookup
+- E-commerce: product search, price comparison, ordering
+- Smart home: device control, automation routines
+- Software development: code generation, testing, deployment
+
+Key Findings:
+- Foundation models can effectively orchestrate existing APIs
+- Natural language API descriptions enable zero-shot selection
+- The ecosystem approach avoids reinventing existing capabilities
+- TaskMatrix.AI demonstrates a path toward general-purpose AI assistants
+- The framework can be extended to new domains by adding APIs

@@ -1,0 +1,83 @@
+ChatDev: Communicative Agents for Software Development
+Authors: Chen Qian, Wei Liu, Chi-Min Chan, Yujie Ren, Wensi Ai, Yuyu Zhang, Jie Fu, Tao Feng, Hung-Yi Lee, Weizhu Chen
+Published: ICLR 2024
+
+Abstract:
+The development of software engineering has evolved through various paradigms, from structured programming to object-oriented design. However, the fundamental process of software development remains largely human-centric. In this paper, we introduce ChatDev, a novel chat-powered software development framework that leverages multiple communicative agents to automate the software development process.
+
+Core Method:
+ChatDev is a multi-agent framework that simulates a software development company through natural language communication. The framework organizes agents into different roles that collaborate through chat.
+
+Agent Roles:
+1. Chief Executive Officer (CEO):
+   - Strategic decision making
+   - Task prioritization and resource allocation
+   - Final approval of deliverables
+
+2. Chief Technology Officer (CTO):
+   - Technical architecture decisions
+   - Technology stack selection
+   - Code review and quality oversight
+
+3. Programmer:
+   - Writes implementation code
+   - Follows design specifications
+   - Fixes bugs and issues
+
+4. Code Reviewer:
+   - Reviews code for quality and correctness
+   - Provides feedback and suggestions
+   - Ensures coding standards
+
+5. Tester:
+   - Creates and runs test cases
+   - Identifies bugs and issues
+   - Verifies bug fixes
+
+6. Art Designer (for GUI applications):
+   - Designs user interface
+   - Creates visual assets
+   - Ensures usability
+
+Development Phases:
+1. Design Phase:
+   - CEO and CTO discuss requirements
+   - Determine technology stack and architecture
+   - Produce design document
+
+2. Coding Phase:
+   - Programmer writes code based on design
+   - Code Reviewer provides feedback
+   - Iterative refinement through chat
+
+3. Testing Phase:
+   - Tester runs the code
+   - Reports bugs and issues
+   - Programmer fixes problems
+   - Iterative until tests pass
+
+4. Documentation Phase:
+   - Generate README and usage instructions
+   - Document API and architecture
+   - Final delivery
+
+Communication Mechanism:
+- Agents communicate through structured chat messages
+- Each message has a sender, receiver, and content
+- Agents can ask questions, provide feedback, request changes
+- The chat history serves as shared memory
+
+Experiments:
+ChatDev was evaluated on various software development tasks:
+- Successfully generated complete, runnable applications
+- Average development time: under 7 minutes per project
+- Produced games, tools, and web applications
+- Human evaluation showed high user satisfaction
+- The iterative chat-based approach improved code quality
+
+Key Findings:
+- Communicative agents can effectively collaborate on complex tasks
+- Role specialization improves output quality
+- Natural language communication enables flexible coordination
+- The chat-based approach is more flexible than rigid workflows
+- ChatDev demonstrates the potential of AI-powered software development

@@ -1,0 +1,63 @@
+Self-Consistency Improves Chain of Thought Reasoning in Language Models
+Authors: Xuezhi Wang, Jason Wei, Dale Schuurmans, Quoc Le, Ed Chi, Sharan Narang, Aakanksha Chowdhery, Denny Zhou
+Published: ICLR 2023
+
+Abstract:
+We explore a simple ensemble strategy, self-consistency, that significantly improves the reasoning accuracy of large language models. The approach involves sampling a diverse set of reasoning paths instead of only taking the greedy one, and then selecting the most consistent answer by marginalizing out the sampled reasoning paths. Self-consistency leverages the intuition that a complex reasoning problem typically admits multiple different ways of thinking leading to its unique correct answer.
+
+Core Method:
+Self-Consistency is a decoding strategy that improves chain-of-thought reasoning by sampling multiple reasoning paths and taking a majority vote on the final answer.
+
+The Self-Consistency Process:
+1. Prompt with Chain-of-Thought:
+   - Use standard CoT prompting with examples
+   - Instead of greedy decoding, use sampling (temperature > 0)
+   - Generate multiple diverse reasoning paths
+
+2. Sample Diverse Reasoning Paths:
+   - Generate k different completions for the same problem
+   - Each completion may use different reasoning steps
+   - Sampling introduces diversity in approaches
+   - Typical k values: 5, 10, 20, 40
+
+3. Extract Final Answers:
+   - Parse the final answer from each reasoning path
+   - Answers may be numerical, multiple choice, or short text
+   - Handle formatting variations in answers
+
+4. Majority Vote:
+   - Count the frequency of each answer
+   - Select the most common answer as the final result
+   - This is equivalent to marginalizing over reasoning paths
+   - The intuition: correct answers are more likely to be reached consistently
+
+Key Features:
+- No additional training required - purely a decoding strategy
+- Works with any CoT prompt
+- Improves accuracy without changing the model
+- Provides robustness against reasoning errors
+- The diversity of paths naturally handles different solution approaches
+
+Why Self-Consistency Works:
+- Correct reasoning paths tend to converge on the same answer
+- Incorrect paths may produce different wrong answers
+- Majority voting cancels out random errors
+- The approach leverages the "wisdom of crowds" within one model
+- Sampling explores alternative solution methods
+
+Experiments:
+Self-Consistency was evaluated on various reasoning benchmarks:
+- GSM8K: Improved from 57.2% to 74.4% (with k=40)
+- SVAMP: Improved from 79.1% to 86.6%
+- AQuA: Improved from 34.5% to 44.2%
+- StrategyQA: Improved from 70.2% to 75.2%
+- ARC-Challenge: Improved from 85.2% to 87.5%
+- Consistent improvements across all benchmarks
+
+Key Findings:
+- Self-consistency significantly improves CoT reasoning
+- The improvement increases with more samples (diminishing returns)
+- The method is most effective for complex multi-step problems
+- It works across different model sizes and architectures
+- Self-consistency can reveal uncertainty - if answers are split, the model is unsure
+- The approach is simple and cost-effective compared to fine-tuning

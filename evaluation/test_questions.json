@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "category": "事实性",
+    "question": "ReAct的全称是什么？它代表哪两个词的结合？",
+    "answer": "ReAct代表Reasoning和Acting的结合，即推理与行动协同",
+    "source_paper": "ReAct",
+    "keywords": ["Reasoning", "Acting", "推理", "行动"]
+  },
+  {
+    "id": 2,
+    "category": "方法性",
+    "question": "ReAct框架遵循什么样的循环过程？",
+    "answer": "Thought-Action-Observation循环：先思考(Thought)，再执行动作(Action)，然后观察结果(Observation)",
+    "source_paper": "ReAct",
+    "keywords": ["Thought", "Action", "Observation", "循环"]
+  },
+  {
+    "id": 3,
+    "category": "事实性",
+    "question": "Reflexion通过什么方式来强化语言Agent，而不是更新模型权重？",
+    "answer": "通过语言反馈(linguistic feedback)或言语强化学习(verbal reinforcement learning)",
+    "source_paper": "Reflexion",
+    "keywords": ["语言反馈", "linguistic feedback", "verbal reinforcement", "言语强化"]
+  },
+  {
+    "id": 4,
+    "category": "方法性",
+    "question": "Reflexion框架包含哪三个核心组件？",
+    "answer": "Actor(执行者)、Evaluator(评估器)、Self-Reflection(自我反思)",
+    "source_paper": "Reflexion",
+    "keywords": ["Actor", "Evaluator", "Self-Reflection", "执行者", "评估器", "反思"]
+  },
+  {
+    "id": 5,
+    "category": "事实性",
+    "question": "Toolformer的核心创新是什么？它如何让模型学会使用工具？",
+    "answer": "自监督学习工具使用，通过采样-执行-过滤三阶段，自动构建高质量工具调用训练数据，无需人工标注",
+    "source_paper": "Toolformer",
+    "keywords": ["自监督", "self-supervised", "采样", "执行", "过滤", "无需人工标注"]
+  },
+  {
+    "id": 6,
+    "category": "方法性",
+    "question": "Toolformer如何判断一个API调用是否有用？",
+    "answer": "对比插入API调用和不插入调用时预测后续文本的损失(loss)，如果调用后损失降低则保留",
+    "source_paper": "Toolformer",
+    "keywords": ["loss", "损失", "降低", "过滤", "预测"]
+  },
+  {
+    "id": 7,
+    "category": "事实性",
+    "question": "Generative Agents的记忆系统包含哪三种记忆类型？",
+    "answer": "感觉记忆(sensory memory)、短期记忆(short-term memory)、长期记忆(long-term memory)",
+    "source_paper": "Generative Agents",
+    "keywords": ["感觉记忆", "短期记忆", "长期记忆", "sensory", "short-term", "long-term"]
+  },
+  {
+    "id": 8,
+    "category": "方法性",
+    "question": "Generative Agents的反思机制是如何触发的？",
+    "answer": "当近期事件的重要性分数总和超过阈值时触发反思，反思本身也成为记忆",
+    "source_paper": "Generative Agents",
+    "keywords": ["重要性", "阈值", "触发", "反思", "reflection"]
+  },
+  {
+    "id": 9,
+    "category": "事实性",
+    "question": "LLM Agent综述中提出的统一框架包含哪四个模块？",
+    "answer": "Profile(画像)、Memory(记忆)、Planning(规划)、Action(行动)",
+    "source_paper": "LLM Agent Survey",
+    "keywords": ["Profile", "Memory", "Planning", "Action", "画像", "记忆", "规划", "行动"]
+  },
+  {
+    "id": 10,
+    "category": "方法性",
+    "question": "AgentBench包含哪8个评估环境？请至少说出5个",
+    "answer": "操作系统(OS)、数据库(DB)、知识图谱(KG)、数字卡牌游戏(DCG)、横向思维谜题(LTP)、家务(Housekeeping)、网页购物(WebShop)、网页浏览(WebBrowsing)",
+    "source_paper": "AgentBench",
+    "keywords": ["OS", "DB", "KG", "DCG", "LTP", "Housekeeping", "WebShop", "WebBrowsing"]
+  },
+  {
+    "id": 11,
+    "category": "事实性",
+    "question": "MetaGPT的核心理念是什么？用一句话概括",
+    "answer": "Code = SOP(Team)，即软件是由遵循标准操作流程(SOP)的团队产出的结果",
+    "source_paper": "MetaGPT",
+    "keywords": ["Code = SOP", "SOP", "标准操作流程", "团队"]
+  },
+  {
+    "id": 12,
+    "category": "方法性",
+    "question": "MetaGPT中的SOP包含哪四个要素？",
+    "answer": "角色(Role)、动作(Action)、顺序(Sequence)、交付物(Deliverable)",
+    "source_paper": "MetaGPT",
+    "keywords": ["Role", "Action", "Sequence", "Deliverable", "角色", "动作", "顺序", "交付物"]
+  },
+  {
+    "id": 13,
+    "category": "事实性",
+    "question": "ChatDev模拟了一个软件公司，包含哪些角色？请至少说出4个",
+    "answer": "CEO、CTO、程序员(Programmer)、代码审查员(Code Reviewer)、测试员(Tester)、美术设计师(Art Designer)",
+    "source_paper": "ChatDev",
+    "keywords": ["CEO", "CTO", "Programmer", "Reviewer", "Tester", "Designer"]
+  },
+  {
+    "id": 14,
+    "category": "方法性",
+    "question": "CAMEL框架的核心技术Inception Prompting是什么？",
+    "answer": "一种为Agent分配角色并建立协作关系的提示技术，通过设定角色定义、通信协议和约束，确保Agent保持角色并高效协作",
+    "source_paper": "CAMEL",
+    "keywords": ["Inception Prompting", "角色", "role-playing", "协作", "提示"]
+  },
+  {
+    "id": 15,
+    "category": "事实性",
+    "question": "HuggingGPT的四阶段处理流程是什么？",
+    "answer": "任务规划(Task Planning)、模型选择(Model Selection)、任务执行(Task Execution)、响应生成(Response Generation)",
+    "source_paper": "HuggingGPT",
+    "keywords": ["Task Planning", "Model Selection", "Task Execution", "Response Generation", "任务规划", "模型选择", "任务执行", "响应生成"]
+  },
+  {
+    "id": 16,
+    "category": "方法性",
+    "question": "Voyager的三个核心组件是什么？",
+    "answer": "自动课程(Automatic Curriculum)、技能库(Skill Library)、迭代提示机制(Iterative Prompting Mechanism)",
+    "source_paper": "Voyager",
+    "keywords": ["Automatic Curriculum", "Skill Library", "Iterative Prompting", "自动课程", "技能库", "迭代提示"]
+  },
+  {
+    "id": 17,
+    "category": "事实性",
+    "question": "Voyager中的技能是以什么形式存储的？",
+    "answer": "可执行的JavaScript代码，每个技能是一个函数，可以与其他技能组合",
+    "source_paper": "Voyager",
+    "keywords": ["JavaScript", "代码", "函数", "可执行", "组合"]
+  },
+  {
+    "id": 18,
+    "category": "方法性",
+    "question": "Tree of Thoughts相比Chain of Thought的主要区别是什么？",
+    "answer": "ToT探索多条推理路径（树结构），可以回溯和评估候选，而CoT是单条线性推理链",
+    "source_paper": "Tree of Thoughts",
+    "keywords": ["树", "多条路径", "回溯", "评估", "线性", "单条"]
+  },
+  {
+    "id": 19,
+    "category": "事实性",
+    "question": "Tree of Thoughts使用哪两种搜索算法？",
+    "answer": "广度优先搜索(BFS)和深度优先搜索(DFS)",
+    "source_paper": "Tree of Thoughts",
+    "keywords": ["BFS", "DFS", "广度优先", "深度优先", "搜索"]
+  },
+  {
+    "id": 20,
+    "category": "方法性",
+    "question": "Plan-and-Solve prompting相比标准的'Let's think step by step'有什么改进？",
+    "answer": "显式分离规划和执行两个阶段，先生成计划再逐步执行，减少遗漏步骤和计算错误",
+    "source_paper": "Plan-and-Solve",
+    "keywords": ["规划", "执行", "分离", "plan", "solve", "两阶段"]
+  },
+  {
+    "id": 21,
+    "category": "事实性",
+    "question": "Self-Consistency方法的核心思想是什么？",
+    "answer": "采样多条不同的推理路径，然后对最终答案进行多数投票，选择最一致的答案",
+    "source_paper": "Self-Consistency",
+    "keywords": ["多数投票", "采样", "多条路径", "一致性", "majority vote"]
+  },
+  {
+    "id": 22,
+    "category": "方法性",
+    "question": "LLM+P框架是如何结合大语言模型和经典规划器的？",
+    "answer": "LLM将自然语言问题翻译成PDDL形式化定义，经典规划器求解最优计划，再翻译回自然语言",
+    "source_paper": "LLM+P",
+    "keywords": ["PDDL", "翻译", "经典规划器", "形式化", "最优计划"]
+  },
+  {
+    "id": 23,
+    "category": "事实性",
+    "question": "Code as Policies (CaP)的核心思想是什么？",
+    "answer": "用LLM生成Python代码来控制机器人，代码比自然语言更精确、更有表达力",
+    "source_paper": "Code as Policies",
+    "keywords": ["代码", "Python", "机器人控制", "code", "policies"]
+  },
+  {
+    "id": 24,
+    "category": "方法性",
+    "question": "TaskMatrix.AI的四个核心组件是什么？",
+    "answer": "多模态对话基础模型(MCFM)、API平台、API选择器、动作执行器",
+    "source_paper": "TaskMatrix",
+    "keywords": ["MCFM", "API平台", "API选择器", "动作执行器", "foundation model"]
+  },
+  {
+    "id": 25,
+    "category": "对比性",
+    "question": "Graph of Thoughts相比Tree of Thoughts有什么优势？",
+    "answer": "GoT支持图结构，可以合并不同分支的想法、支持循环，而ToT是树结构不能合并路径",
+    "source_paper": "Graph of Thoughts",
+    "keywords": ["图", "合并", "循环", "树", "graph", "tree", "聚合"]
+  },
+  {
+    "id": 26,
+    "category": "方法性",
+    "question": "Inner Monologue框架如何实现机器人的自适应行为？",
+    "answer": "通过维护内部独白，结合环境反馈不断调整计划，处理失败并适应新情况",
+    "source_paper": "Inner Monologue",
+    "keywords": ["内部独白", "环境反馈", "自适应", "失败恢复", "monologue"]
+  },
+  {
+    "id": 27,
+    "category": "事实性",
+    "question": "LLM幻觉(Hallucination)主要分为哪两大类？",
+    "answer": "事实性幻觉(Factuality Hallucination)和忠实性幻觉(Faithfulness Hallucination)",
+    "source_paper": "Hallucination Survey",
+    "keywords": ["事实性", "忠实性", "Factuality", "Faithfulness", "幻觉"]
+  },
+  {
+    "id": 28,
+    "category": "对比性",
+    "question": "ReAct和Reflexion的主要区别是什么？",
+    "answer": "ReAct是单次任务中的推理-行动交替，Reflexion是跨多次试验的自我反思学习，通过记忆积累经验",
+    "source_paper": "ReAct, Reflexion",
+    "keywords": ["单次", "多次", "反思", "记忆", "学习", "trial"]
+  },
+  {
+    "id": 29,
+    "category": "对比性",
+    "question": "MetaGPT和ChatDev都是多Agent软件开发框架，它们的主要区别是什么？",
+    "answer": "MetaGPT强调SOP标准化流程和结构化文档交付，ChatDev更强调通过自然语言聊天进行灵活协作",
+    "source_paper": "MetaGPT, ChatDev",
+    "keywords": ["SOP", "结构化", "聊天", "灵活", "workflow", "chat"]
+  },
+  {
+    "id": 30,
+    "category": "总结性",
+    "question": "在RAG系统中，有哪些方法可以减少LLM幻觉？请至少说出3种",
+    "answer": "检索增强生成(RAG)、思维链验证、自一致性投票、事实核查、输出过滤、不确定性校准",
+    "source_paper": "Hallucination Survey",
+    "keywords": ["RAG", "检索增强", "验证", "投票", "事实核查", "过滤"]
+  }
+]

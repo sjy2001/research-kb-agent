@@ -1,0 +1,57 @@
+Voyager: An Open-Ended Embodied Agent with Large Language Models
+Authors: Guanzhi Wang, Yuqi Xie, Yunfan Jiang, Ajay Mandlekar, Chaowei Xiao, Yuke Zhu, Linxi Fan, Anima Anandkumar
+Published: NeurIPS 2023
+
+Abstract:
+We introduce Voyager, the first LLM-powered embodied lifelong learning agent in Minecraft that continuously explores the world, acquires diverse skills, and makes novel discoveries without human intervention. Voyager consists of three key components: an automatic curriculum that maximizes exploration, an ever-growing skill library of executable code for storing and retrieving complex behaviors, and a new iterative prompting mechanism that incorporates environment feedback, execution errors, and self-verification for program improvement.
+
+Core Method:
+Voyager is an autonomous agent for Minecraft that uses GPT-4 to learn and improve continuously. It addresses the challenge of open-ended learning in embodied environments.
+
+Three Key Components:
+
+1. Automatic Curriculum:
+   - Proposes increasingly difficult tasks based on the agent's current capabilities
+   - Maximizes exploration by targeting novel items and locations
+   - Tasks are generated based on game progression and agent state
+   - The curriculum adapts to what the agent has already mastered
+   - Encourages discovery of new biomes, resources, and crafting recipes
+
+2. Skill Library:
+   - Stores learned skills as executable JavaScript code
+   - Each skill is a function that can be composed with other skills
+   - Skills are indexed by embedding for semantic retrieval
+   - New skills are added to the library as they are learned
+   - Complex behaviors are built by composing simpler skills
+   - The library grows monotonically over time
+
+3. Iterative Prompting Mechanism:
+   - GPT-4 generates code for proposed tasks
+   - Code is executed in the Minecraft environment
+   - Environment feedback (success/failure, state changes) is collected
+   - Execution errors are fed back to GPT-4 for debugging
+   - Self-verification: the agent checks if the task was completed
+   - The process repeats until success or maximum iterations
+
+Key Features:
+- Lifelong learning: skills accumulate and improve over time
+- No human intervention: fully autonomous exploration
+- Code as actions: executable programs are more reusable than natural language
+- Skill composition: complex behaviors from simple primitives
+- Contextual learning: adapts to specific world seeds and environments
+
+Experiments:
+Voyager was evaluated in Minecraft:
+- Discovered 63 unique items in 160 minutes, 3.3x more than baselines
+- Achieved 2.3x faster progression through tech tree
+- Successfully learned and composed 30+ distinct skills
+- Generalized to new worlds and tasks better than baselines
+- Demonstrated emergent behaviors like building shelters and farming
+- Outperformed ReAct, Reflexion, and other baselines significantly
+
+Key Findings:
+- Code-based skill representation enables better reuse and composition
+- Automatic curriculum drives efficient exploration
+- Iterative debugging with environment feedback is crucial
+- Skill library enables transfer learning across tasks
+- The approach demonstrates the potential of LLM-powered lifelong learning

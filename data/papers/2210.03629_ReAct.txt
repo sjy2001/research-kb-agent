@@ -1,0 +1,33 @@
+ReAct: Synergizing Reasoning and Acting in Language Models
+Authors: Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, Yuan Cao
+Published: ICLR 2023
+
+Abstract:
+Large language models (LLMs) have demonstrated impressive capabilities across tasks requiring reasoning and decision-making. However, reasoning (e.g., chain-of-thought prompting) and acting (e.g., action plan generation) have primarily been studied as separate topics. In this paper, we explore the use of LLMs to generate both reasoning traces and task-specific actions in an interleaved manner, allowing for greater synergy between the two.
+
+Core Method:
+ReAct (Reasoning + Acting) is a prompting paradigm that enables LLMs to generate interleaved thoughts and actions. The key insight is to extend the action space to include both task-specific actions and natural language reasoning traces (thoughts). 
+
+The ReAct framework follows a Thought-Action-Observation loop:
+1. Thought: The model reasons about the current state and plans next steps
+2. Action: The model performs an action (e.g., search, lookup, navigate)
+3. Observation: The model receives feedback from the environment
+
+This allows the model to:
+- Induce, track, and update action plans through reasoning
+- Handle exceptions and recover from errors
+- Interface with external sources (knowledge bases, environments) to gather information
+- Avoid hallucination by grounding reasoning in external observations
+
+Experiments:
+ReAct was evaluated on four diverse benchmarks:
+1. HotpotQA (multi-hop question answering): ReAct outperformed pure reasoning and pure acting baselines, achieving better factuality
+2. FEVER (fact verification): ReAct achieved state-of-the-art performance with improved interpretability
+3. ALFWorld (text-based games): ReAct achieved 34% higher success rate than baseline methods
+4. WebShop (online shopping): ReAct outperformed imitation learning baselines
+
+Key Findings:
+- ReAct combines the strengths of chain-of-thought reasoning (plan generation) and acting (information gathering)
+- The interleaved format makes the model's decision process more interpretable
+- ReAct is more robust to errors than pure reasoning or pure acting approaches
+- Human evaluators preferred ReAct's outputs for their transparency and correctness

@@ -1,0 +1,97 @@
+A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions
+Authors: Lei Huang, Weiang Shi, Yufei Wang, Guanting Dong, Fengyu Cai, Yuxuan Wang, Enhong Chen, Zhenguo Li, Shuang Li
+Published: 2024
+
+Abstract:
+Large language models have demonstrated remarkable capabilities in various natural language processing tasks. However, they are prone to hallucinations, generating content that is fabricated or inconsistent with factual information. This survey provides a comprehensive review of hallucination in LLMs, covering definitions, taxonomies, detection methods, and mitigation strategies.
+
+Core Content:
+Definition of Hallucination:
+Hallucination in LLMs refers to generated content that is:
+- Factually incorrect or unsupported by the input
+- Inconsistent with established knowledge
+- Fabricated or made-up information
+- Presented with high confidence despite being wrong
+
+Taxonomy of Hallucinations:
+
+1. Factuality Hallucination:
+   - Factual inconsistency with world knowledge
+   - Example: stating incorrect historical dates
+   - Subtypes: entity errors, relation errors, attribute errors
+
+2. Faithfulness Hallucination:
+   - Inconsistency with the provided source/input
+   - Example: summarization that adds information not in the text
+   - Subtypes: unsupported claims, contradictory statements
+
+3. Intentional vs. Unintentional:
+   - Intentional: model knowingly generates false information
+   - Unintentional: model believes the information is correct
+
+Causes of Hallucination:
+
+1. Data-Related Causes:
+   - Training data contains errors or biases
+   - Knowledge cutoff - model lacks recent information
+   - Data duplication and memorization issues
+   - Imbalanced data representation
+
+2. Model-Related Causes:
+   - Parametric knowledge limitations
+   - Attention mechanism imperfections
+   - Decoding strategies that favor fluency over accuracy
+   - Overconfidence in predictions
+
+3. Training-Related Causes:
+   - Alignment between training objectives and factual accuracy
+   - Reinforcement learning from human feedback (RLHF) side effects
+   - Inadequate penalization of false statements
+
+Detection Methods:
+1. Fact-checking based: verify claims against knowledge bases
+2. Model-based: use another LLM to detect hallucinations
+3. Self-consistency: check if multiple generations agree
+4. Entailment-based: verify if output is entailed by input
+5. Uncertainty estimation: detect when model is uncertain
+
+Mitigation Strategies:
+1. Training-time:
+   - Improved data curation and filtering
+   - Knowledge augmentation during training
+   - Contrastive learning to reduce hallucination
+   - Better alignment objectives
+
+2. Inference-time:
+   - Retrieval-augmented generation (RAG)
+   - Chain-of-thought verification
+   - Self-consistency and majority voting
+   - Temperature adjustment and constrained decoding
+
+3. Post-hoc:
+   - Fact-checking and correction
+   - Output filtering and editing
+   - Uncertainty calibration
+
+Evaluation Benchmarks:
+- TruthfulQA: measures truthfulness in questions
+- HalluEval: evaluates hallucination in dialogue
+- FactScore: assesses factual precision in long text
+- FEVER: fact verification benchmark
+- Various domain-specific benchmarks
+
+Open Challenges:
+- Defining and measuring hallucination consistently
+- Balancing creativity and factuality
+- Handling hallucination in multi-turn conversations
+- Real-time hallucination detection
+- Cross-lingual hallucination
+- Hallucination in multimodal models
+
+Key Findings:
+- Hallucination remains a fundamental challenge for LLMs
+- RAG is one of the most effective mitigation strategies
+- No single method completely eliminates hallucination
+- Detection is as important as prevention
+- The field needs better evaluation standards
+- Hallucination management requires a holistic approach

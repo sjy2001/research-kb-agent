@@ -1,0 +1,46 @@
+Toolformer: Language Models Can Teach Themselves to Use Tools
+Authors: Timo Schick, Jane Dwivedi-Yu, Roberto Dessì, Roberta Raileanu, Maria Lomeli, Luke Zettlemoyer, Nicola Cancedda, Thomas Scialom
+Published: NeurIPS 2023
+
+Abstract:
+Language models exhibit remarkable abilities but struggle with basic functionalities such as arithmetic or factual lookup, where much simpler and smaller models excel. In this paper, we show that LMs can teach themselves to use external tools via simple APIs and achieve the best of both worlds. We introduce Toolformer, a model trained to decide which APIs to call, when to call them, what arguments to pass, and how to best incorporate the results into future token prediction.
+
+Core Method:
+Toolformer is a self-supervised approach for teaching language models to use external tools. The key innovation is that the model generates its own training data for tool use, without requiring human annotations.
+
+The training process has three stages:
+1. Sampling API Calls:
+   - Given a plain text dataset, the model uses few-shot prompting to annotate potential API call positions
+   - For each position, the model generates candidate API calls with arguments
+   - Multiple candidates are sampled per position
+
+2. Executing API Calls:
+   - Each candidate call is actually executed against the corresponding tool
+   - Tools include: question answering, calculator, Wikipedia search, translation, calendar
+   - Real results are obtained from each API call
+
+3. Filtering by Self-Supervised Loss:
+   - For each candidate call, compare the loss of predicting subsequent tokens with and without the API result
+   - Keep only calls that reduce the loss (i.e., the tool result actually helps prediction)
+   - This creates a high-quality dataset of useful tool calls
+
+After filtering, the model is fine-tuned on the filtered dataset.
+
+Key Features:
+- Fully self-supervised: no human annotation required
+- Tool-agnostic: can learn to use any API
+- Decides when and how to use tools autonomously
+- Maintains general language modeling abilities while gaining tool proficiency
+
+Experiments:
+Toolformer was evaluated on various downstream tasks:
+- Mathematical reasoning: Significant improvement on GSM8K and other math benchmarks
+- Factual QA: Reduced hallucination through Wikipedia lookup
+- Multi-step reasoning: Better performance on tasks requiring external information
+- The model learned to use tools appropriately without explicit instruction
+
+Key Findings:
+- Self-supervised filtering is crucial - random tool calls hurt performance
+- The model learns to use tools only when genuinely helpful
+- Tool use transfers to tasks not seen during training
+- Smaller models with tools can outperform larger models without tools

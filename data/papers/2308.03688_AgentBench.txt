@@ -1,0 +1,65 @@
+AgentBench: Evaluating LLMs as Agents
+Authors: Xiao Liu, Hao Yu, Hanchen Zhang, Yifan Xu, Xuanyu Lei, Hanyu Lai, Yu Gu, Hangliang Ding, Kaiwen Men, Kejuan Yang, et al.
+Published: ICLR 2024
+
+Abstract:
+Large language models are exhibiting an increasing number of capabilities, and are being used in increasingly complex real-world applications. However, existing LLM benchmarks mostly evaluate their capabilities in a multi-turn style, which is not suitable for evaluating LLMs as agents. In this paper, we present AgentBench, the first benchmark to evaluate LLMs as agents in a multi-turn, open-ended, and interactive environment.
+
+Core Method:
+AgentBench is a comprehensive benchmark designed to evaluate LLMs as autonomous agents. It consists of 8 distinct environments that test different agent capabilities:
+
+1. Operating System (OS):
+   - Agents interact with a Linux terminal
+   - Tasks: file operations, system administration, command execution
+   - Evaluates: tool use, planning, error recovery
+
+2. Database (DB):
+   - Agents interact with a database via SQL
+   - Tasks: query construction, data manipulation, schema understanding
+   - Evaluates: logical reasoning, tool proficiency
+
+3. Knowledge Graph (KG):
+   - Agents query a knowledge graph
+   - Tasks: multi-hop reasoning, entity resolution
+   - Evaluates: structured reasoning, information retrieval
+
+4. Digital Card Game (DCG):
+   - Agents play a strategy card game
+   - Tasks: resource management, long-term planning, opponent modeling
+   - Evaluates: strategic thinking, decision-making under uncertainty
+
+5. Lateral Thinking Puzzles (LTP):
+   - Agents solve yes/no puzzles
+   - Tasks: information gathering, hypothesis testing
+   - Evaluates: creative reasoning, question formulation
+
+6. Household Tasks (Housekeeping):
+   - Agents control a simulated household robot
+   - Tasks: object manipulation, spatial reasoning
+   - Evaluates: embodied intelligence, planning
+
+7. Web Shopping (WebShop):
+   - Agents navigate an e-commerce website
+   - Tasks: product search, attribute matching, purchase decisions
+   - Evaluates: web interaction, goal achievement
+
+8. Web Browsing (WebBrowsing):
+   - Agents browse the web to find information
+   - Tasks: search, navigation, information extraction
+   - Evaluates: internet navigation, research skills
+
+Evaluation Metrics:
+- Success rate: percentage of tasks completed
+- Average reward: cumulative score across episodes
+- Efficiency: number of steps/time to complete tasks
+- Error recovery: ability to handle failures
+
+Key Findings:
+- There is a significant performance gap between API-based models and open-source models
+- GPT-4 consistently outperforms other models across environments
+- Agent performance varies widely across different environments
+- Most models struggle with long-horizon tasks requiring sustained planning
+- Tool use and error recovery are common weaknesses
+- The benchmark reveals that LLM agents are still far from human-level performance
+
+The benchmark provides a standardized way to measure progress in LLM agent development.

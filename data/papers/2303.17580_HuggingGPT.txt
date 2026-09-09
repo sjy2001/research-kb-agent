@@ -1,0 +1,65 @@
+HuggingGPT: Solving AI Tasks with ChatGPT and its Friends in Hugging Face
+Authors: Yongliang Shen, Kaitao Song, Xu Tan, Dongsheng Li, Weiming Lu, Yueting Zhuang
+Published: NeurIPS 2023
+
+Abstract:
+Solving complicated AI tasks with different domains and modalities is a key step toward advanced artificial intelligence. While there are abundant AI models available for different domains and modalities, they cannot handle complicated AI tasks. Considering large language models exhibit exceptional ability in language understanding, generation, interaction, and reasoning, we advocate that LLMs could act as a controller to manage existing AI models to solve complicated AI tasks.
+
+Core Method:
+HuggingGPT is a framework that uses ChatGPT as a controller to orchestrate expert models from Hugging Face for solving complex AI tasks. The system connects language understanding with multimodal AI capabilities.
+
+Architecture:
+HuggingGPT follows a four-stage pipeline:
+
+1. Task Planning:
+   - ChatGPT parses the user request
+   - Decomposes complex tasks into subtasks
+   - Determines the order and dependencies of subtasks
+   - Handles both single-step and multi-step tasks
+
+2. Model Selection:
+   - For each subtask, ChatGPT selects appropriate expert models
+   - Models are chosen based on their function descriptions
+   - The system matches task requirements to model capabilities
+   - Multiple models can be selected for a single subtask
+
+3. Task Execution:
+   - Selected models are executed with appropriate inputs
+   - Results are collected and passed to subsequent subtasks
+   - The system handles different input/output modalities
+   - Execution is managed according to task dependencies
+
+4. Response Generation:
+   - ChatGPT integrates all execution results
+   - Generates a natural language response for the user
+   - Includes explanations and references to model outputs
+   - Handles failures and provides alternative approaches
+
+Supported Modalities and Tasks:
+- Text: classification, summarization, translation, question answering
+- Image: generation, classification, object detection, segmentation
+- Audio: speech recognition, speech synthesis, audio classification
+- Video: generation, classification, captioning
+- Cross-modal: text-to-image, image-to-text, visual question answering
+
+Key Features:
+- Leverages hundreds of expert models from Hugging Face
+- No fine-tuning required - uses in-context learning
+- Supports complex multi-step, multi-modal tasks
+- Automatic model selection and orchestration
+- Handles task dependencies and execution order
+
+Experiments:
+HuggingGPT was evaluated on various complex tasks:
+- Multi-modal question answering
+- Image generation and editing pipelines
+- Audio-visual content creation
+- Complex reasoning tasks requiring multiple models
+- The system successfully completed tasks requiring coordination of 2-5 expert models
+
+Key Findings:
+- LLMs can effectively serve as controllers for expert model ecosystems
+- Language is a universal interface for connecting diverse AI models
+- The approach enables solving tasks beyond any single model's capability
+- Model description quality is critical for effective selection
+- The framework demonstrates the potential of model collaboration

@@ -1,0 +1,58 @@
+MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework
+Authors: Sirui Hong, Mingchen Zhuge, Jonathan Chen, Xiawu Zheng, Yuheng Cheng, Ceyao Zhang, Jinlin Wang, Zili Wang, Steven Ka Shing Yau, Zijuan Lin, et al.
+Published: ICLR 2024
+
+Abstract:
+We introduce MetaGPT, an innovative framework that incorporates efficient human workflows as a meta programming approach into LLM-based multi-agent collaboration. Specifically, MetaGPT encodes Standardized Operating Procedures (SOPs) into prompts to enhance structured coordination. Subsequently, it mandates modular outputs, empowering agents with domain expertise comparable to human professionals, to validate and refine outputs using executable code.
+
+Core Method:
+MetaGPT is a multi-agent framework that simulates a software company's workflow. The core philosophy is "Code = SOP(Team)" - software is produced by a team following standardized operating procedures.
+
+Key Components:
+1. Role-Based Agents:
+   - Product Manager: writes PRD (Product Requirements Document)
+   - Architect: designs system architecture and APIs
+   - Project Manager: breaks down tasks and creates WBS
+   - Engineer: writes code based on task specifications
+   - QA Engineer: tests code and reports bugs
+   - Each role has specific profile, goals, and constraints
+
+2. Standard Operating Procedures (SOP):
+   - SOP = Role + Action + Sequence + Deliverable
+   - Defines the order of operations and handoffs between roles
+   - Each role observes upstream output and produces downstream input
+   - Encodes human best practices into structured workflows
+
+3. Knowledge Sharing:
+   - Shared message pool for inter-agent communication
+   - Publish-subscribe pattern for role-specific message filtering
+   - Each agent subscribes to relevant message types
+   - Reduces information overload and improves focus
+
+4. Modular Outputs:
+   - Each role produces structured, standardized documents
+   - Outputs are validated and can be parsed programmatically
+   - Enables automated quality checking and refinement
+
+The Software Development Workflow:
+1. User requirement → Product Manager → PRD
+2. PRD → Architect → System Design Document + API spec
+3. Design → Project Manager → Task breakdown + dependencies
+4. Tasks → Engineer → Code implementation
+5. Code → QA Engineer → Testing + bug reports
+6. Bug fixes → Engineer → Final code
+
+Experiments:
+MetaGPT was evaluated on software development tasks:
+- Generated complete, runnable software projects from one-line requirements
+- Achieved 82% task completion rate on complex development tasks
+- Outperformed single-agent and other multi-agent baselines
+- Produced more structured and maintainable code
+- The SOP approach reduced hallucination and cascading errors
+
+Key Findings:
+- SOP-based coordination significantly improves multi-agent performance
+- Role specialization leads to higher quality outputs
+- Structured document handoffs prevent information loss
+- The framework generalizes beyond software to other domains
+- MetaGPT demonstrates that human organizational principles can be effectively transferred to AI teams

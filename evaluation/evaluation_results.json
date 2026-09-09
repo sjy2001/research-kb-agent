@@ -1,0 +1,744 @@
+{
+  "retrieval": {
+    "hybrid_with_rerank": {
+      "top1": 24,
+      "top3": 28,
+      "top5": 28,
+      "mrr_scores": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.5,
+        1.0,
+        0.3333333333333333,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0,
+        0.5,
+        1.0,
+        1.0,
+        0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.3333333333333333,
+        1.0,
+        1.0
+      ],
+      "top1_rate": 0.8,
+      "top3_rate": 0.9333333333333333,
+      "top5_rate": 0.9333333333333333,
+      "mrr": 0.8555555555555556
+    },
+    "hybrid_no_rerank": {
+      "top1": 21,
+      "top3": 23,
+      "top5": 24,
+      "mrr_scores": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.5,
+        0,
+        1.0,
+        0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0,
+        0,
+        1.0,
+        1.0,
+        0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.5,
+        0,
+        1.0,
+        0.2
+      ],
+      "top1_rate": 0.7,
+      "top3_rate": 0.7666666666666667,
+      "top5_rate": 0.8,
+      "mrr": 0.74
+    },
+    "vector_only": {
+      "top1": 21,
+      "top3": 25,
+      "top5": 25,
+      "mrr_scores": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.5,
+        1.0,
+        1.0,
+        0.3333333333333333,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0,
+        0,
+        1.0,
+        1.0,
+        0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.3333333333333333,
+        0,
+        0.5,
+        0
+      ],
+      "top1_rate": 0.7,
+      "top3_rate": 0.8333333333333334,
+      "top5_rate": 0.8333333333333334,
+      "mrr": 0.7555555555555556
+    },
+    "bm25_only": {
+      "top1": 22,
+      "top3": 22,
+      "top5": 25,
+      "mrr_scores": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0,
+        0.25,
+        0.2,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0,
+        0,
+        1.0,
+        0.25,
+        0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0,
+        1.0,
+        1.0
+      ],
+      "top1_rate": 0.7333333333333333,
+      "top3_rate": 0.7333333333333333,
+      "top5_rate": 0.8333333333333334,
+      "mrr": 0.7566666666666666
+    }
+  },
+  "answer_quality": {
+    "overall_keyword_hit_rate": 0.5647058823529412,
+    "total_keywords": 170,
+    "total_hit": 96,
+    "per_question": [
+      {
+        "id": 1,
+        "question": "ReAct的全称是什么？它代表哪两个词的结合？",
+        "answer": "ReAct的全称是Reasoning + Acting，代表“推理”（Reasoning）和“行动”（Acting）两个词的结合。",
+        "expected_keywords": [
+          "Reasoning",
+          "Acting",
+          "推理",
+          "行动"
+        ],
+        "hit_keywords": [
+          "Reasoning",
+          "Acting",
+          "推理",
+          "行动"
+        ],
+        "keyword_hit_rate": 1.0
+      },
+      {
+        "id": 2,
+        "question": "ReAct框架遵循什么样的循环过程？",
+        "answer": "根据论文内容，ReAct框架遵循Thought-Action-Observation循环过程：\n\n1. **Thought**：模型推理当前状态并规划下一步\n2. **Action**：模型执行动作（如搜索、查找、导航）\n3. **Observation**：模型从环境中接收反馈",
+        "expected_keywords": [
+          "Thought",
+          "Action",
+          "Observation",
+          "循环"
+        ],
+        "hit_keywords": [
+          "Thought",
+          "Action",
+          "Observation",
+          "循环"
+        ],
+        "keyword_hit_rate": 1.0
+      },
+      {
+        "id": 3,
+        "question": "Reflexion通过什么方式来强化语言Agent，而不是更新模型权重？",
+        "answer": "Reflexion通过语言反馈（verbal feedback）来强化语言Agent，而不是更新模型权重。具体来说，它利用自我反思（self-reflection）生成自然语言形式的强化信号，替代传统的标量奖励，从而帮助Agent从失败中快速学习。",
+        "expected_keywords": [
+          "语言反馈",
+          "linguistic feedback",
+          "verbal reinforcement",
+          "言语强化"
+        ],
+        "hit_keywords": [
+          "语言反馈"
+        ],
+        "keyword_hit_rate": 0.25
+      },
+      {
+        "id": 4,
+        "question": "Reflexion框架包含哪三个核心组件？",
+        "answer": "根据论文内容，Reflexion框架包含三个核心组件：\n\n1. **Actor**：基于观察和长期记忆生成任务解决方案\n2. **Evaluator**：对Actor的输出进行评分并提供反馈信号\n3. **Self-Reflection**：基于任务反馈生成语言强化线索",
+        "expected_keywords": [
+          "Actor",
+          "Evaluator",
+          "Self-Reflection",
+          "执行者",
+          "评估器",
+          "反思"
+        ],
+        "hit_keywords": [
+          "Actor",
+          "Evaluator",
+          "Self-Reflection"
+        ],
+        "keyword_hit_rate": 0.5
+      },
+      {
+        "id": 5,
+        "question": "Toolformer的核心创新是什么？它如何让模型学会使用工具？",
+        "answer": "Toolformer的核心创新是采用自监督方式让语言模型自己生成工具使用的训练数据，无需人工标注。它通过训练模型自主决定何时调用API、调用哪个API、传递什么参数，以及如何将工具结果整合到后续的token预测中，从而学会使用外部工具。",
+        "expected_keywords": [
+          "自监督",
+          "self-supervised",
+          "采样",
+          "执行",
+          "过滤",
+          "无需人工标注"
+        ],
+        "hit_keywords": [
+          "自监督",
+          "无需人工标注"
+        ],
+        "keyword_hit_rate": 0.3333333333333333
+      },
+      {
+        "id": 6,
+        "question": "Toolformer如何判断一个API调用是否有用？",
+        "answer": "Toolformer通过自监督损失过滤来判断API调用是否有用：对每个候选调用，比较加入API结果前后预测后续token的损失，仅保留能降低损失（即工具结果有助于预测）的调用。",
+        "expected_keywords": [
+          "loss",
+          "损失",
+          "降低",
+          "过滤",
+          "预测"
+        ],
+        "hit_keywords": [
+          "损失",
+          "降低",
+          "过滤",
+          "预测"
+        ],
+        "keyword_hit_rate": 0.8
+      },
+      {
+        "id": 7,
+        "question": "Generative Agents的记忆系统包含哪三种记忆类型？",
+        "answer": "根据论文内容，Generative Agents的记忆系统包含三种记忆类型：感官记忆（Sensory memory）、短期记忆（Short-term memory）和长期记忆（Long-term memory）。",
+        "expected_keywords": [
+          "感觉记忆",
+          "短期记忆",
+          "长期记忆",
+          "sensory",
+          "short-term",
+          "long-term"
+        ],
+        "hit_keywords": [
+          "短期记忆",
+          "长期记忆",
+          "sensory",
+          "short-term",
+          "long-term"
+        ],
+        "keyword_hit_rate": 0.8333333333333334
+      },
+      {
+        "id": 8,
+        "question": "Generative Agents的反思机制是如何触发的？",
+        "answer": "根据论文内容，Generative Agents的反思机制触发条件是：当近期事件的重要性分数总和超过一个阈值时，反思被触发。",
+        "expected_keywords": [
+          "重要性",
+          "阈值",
+          "触发",
+          "反思",
+          "reflection"
+        ],
+        "hit_keywords": [
+          "重要性",
+          "阈值",
+          "触发",
+          "反思"
+        ],
+        "keyword_hit_rate": 0.8
+      },
+      {
+        "id": 9,
+        "question": "LLM Agent综述中提出的统一框架包含哪四个模块？",
+        "answer": "根据论文内容，LLM Agent综述提出的统一框架包含四个模块，但来源中仅明确列出了Profile Module（[来源3]），其余三个模块未在提供的文本中具体说明。因此，无法完整回答四个模块的名称。",
+        "expected_keywords": [
+          "Profile",
+          "Memory",
+          "Planning",
+          "Action",
+          "画像",
+          "记忆",
+          "规划",
+          "行动"
+        ],
+        "hit_keywords": [
+          "Profile"
+        ],
+        "keyword_hit_rate": 0.125
+      },
+      {
+        "id": 10,
+        "question": "AgentBench包含哪8个评估环境？请至少说出5个",
+        "answer": "根据论文内容，AgentBench包含8个评估环境，但文中仅明确提及一个：**Household Tasks (Housekeeping)**（模拟家务机器人任务）。其他环境未在提供的片段中列出，因此无法完整给出5个。",
+        "expected_keywords": [
+          "OS",
+          "DB",
+          "KG",
+          "DCG",
+          "LTP",
+          "Housekeeping",
+          "WebShop",
+          "WebBrowsing"
+        ],
+        "hit_keywords": [
+          "Housekeeping"
+        ],
+        "keyword_hit_rate": 0.125
+      },
+      {
+        "id": 11,
+        "question": "MetaGPT的核心理念是什么？用一句话概括",
+        "answer": "MetaGPT的核心理念是“Code = SOP(Team)”，即通过将标准化操作流程编码到多智能体协作中，模拟软件公司团队的工作流程来生成软件。",
+        "expected_keywords": [
+          "Code = SOP",
+          "SOP",
+          "标准操作流程",
+          "团队"
+        ],
+        "hit_keywords": [
+          "Code = SOP",
+          "SOP",
+          "团队"
+        ],
+        "keyword_hit_rate": 0.75
+      },
+      {
+        "id": 12,
+        "question": "MetaGPT中的SOP包含哪四个要素？",
+        "answer": "根据论文内容，MetaGPT中的SOP包含四个要素：Role（角色）、Action（行动）、Sequence（顺序）和Deliverable（交付物）。",
+        "expected_keywords": [
+          "Role",
+          "Action",
+          "Sequence",
+          "Deliverable",
+          "角色",
+          "动作",
+          "顺序",
+          "交付物"
+        ],
+        "hit_keywords": [
+          "Role",
+          "Action",
+          "Sequence",
+          "Deliverable",
+          "角色",
+          "顺序",
+          "交付物"
+        ],
+        "keyword_hit_rate": 0.875
+      },
+      {
+        "id": 13,
+        "question": "ChatDev模拟了一个软件公司，包含哪些角色？请至少说出4个",
+        "answer": "根据论文内容，ChatDev将代理组织成不同角色，但具体角色名称未在提供的文本中列出。仅提及“不同角色”和“角色专业化”，未给出至少4个具体角色。",
+        "expected_keywords": [
+          "CEO",
+          "CTO",
+          "Programmer",
+          "Reviewer",
+          "Tester",
+          "Designer"
+        ],
+        "hit_keywords": [],
+        "keyword_hit_rate": 0.0
+      },
+      {
+        "id": 14,
+        "question": "CAMEL框架的核心技术Inception Prompting是什么？",
+        "answer": "根据论文内容，Inception Prompting是CAMEL框架中的一项核心技术，用于通过角色扮演设定协作场景。它具体包括：分配角色、建立代理间关系、定义角色定义、通信协议和约束条件，确保代理保持角色并有效协作。",
+        "expected_keywords": [
+          "Inception Prompting",
+          "角色",
+          "role-playing",
+          "协作",
+          "提示"
+        ],
+        "hit_keywords": [
+          "Inception Prompting",
+          "角色",
+          "协作"
+        ],
+        "keyword_hit_rate": 0.6
+      },
+      {
+        "id": 15,
+        "question": "HuggingGPT的四阶段处理流程是什么？",
+        "answer": "根据论文内容，HuggingGPT的四阶段处理流程是：任务规划（Task Planning）、模型选择、任务执行和响应生成。具体为：ChatGPT解析用户请求并分解子任务，然后从Hugging Face选择合适专家模型，执行任务，最后整合结果生成响应。",
+        "expected_keywords": [
+          "Task Planning",
+          "Model Selection",
+          "Task Execution",
+          "Response Generation",
+          "任务规划",
+          "模型选择",
+          "任务执行",
+          "响应生成"
+        ],
+        "hit_keywords": [
+          "Task Planning",
+          "任务规划",
+          "模型选择",
+          "任务执行",
+          "响应生成"
+        ],
+        "keyword_hit_rate": 0.625
+      },
+      {
+        "id": 16,
+        "question": "Voyager的三个核心组件是什么？",
+        "answer": "根据论文内容，Voyager的三个核心组件是：\n1. 自动课程（automatic curriculum），最大化探索；\n2. 不断增长的技能库（ever-growing skill library），存储和检索复杂行为的可执行代码；\n3. 新的迭代提示机制（iterative prompting mechanism），结合环境反馈、执行错误和自我验证来改进程序。",
+        "expected_keywords": [
+          "Automatic Curriculum",
+          "Skill Library",
+          "Iterative Prompting",
+          "自动课程",
+          "技能库",
+          "迭代提示"
+        ],
+        "hit_keywords": [
+          "Automatic Curriculum",
+          "Skill Library",
+          "Iterative Prompting",
+          "自动课程",
+          "技能库",
+          "迭代提示"
+        ],
+        "keyword_hit_rate": 1.0
+      },
+      {
+        "id": 17,
+        "question": "Voyager中的技能是以什么形式存储的？",
+        "answer": "根据论文内容，Voyager中的技能是以**可执行代码**的形式存储的（来源1：技能库包含“executable code”）。",
+        "expected_keywords": [
+          "JavaScript",
+          "代码",
+          "函数",
+          "可执行",
+          "组合"
+        ],
+        "hit_keywords": [
+          "代码",
+          "可执行"
+        ],
+        "keyword_hit_rate": 0.4
+      },
+      {
+        "id": 18,
+        "question": "Tree of Thoughts相比Chain of Thought的主要区别是什么？",
+        "answer": "Tree of Thoughts（ToT）相比Chain of Thought（CoT）的主要区别是：ToT允许语言模型同时探索多个推理路径，通过搜索树状结构进行有意识的决策，而CoT仅遵循单一线性推理路径。",
+        "expected_keywords": [
+          "树",
+          "多条路径",
+          "回溯",
+          "评估",
+          "线性",
+          "单条"
+        ],
+        "hit_keywords": [
+          "树",
+          "线性"
+        ],
+        "keyword_hit_rate": 0.3333333333333333
+      },
+      {
+        "id": 19,
+        "question": "Tree of Thoughts使用哪两种搜索算法？",
+        "answer": "Tree of Thoughts使用广度优先搜索（BFS）和深度优先搜索（DFS）两种搜索算法。",
+        "expected_keywords": [
+          "BFS",
+          "DFS",
+          "广度优先",
+          "深度优先",
+          "搜索"
+        ],
+        "hit_keywords": [
+          "BFS",
+          "DFS",
+          "广度优先",
+          "深度优先",
+          "搜索"
+        ],
+        "keyword_hit_rate": 1.0
+      },
+      {
+        "id": 20,
+        "question": "Plan-and-Solve prompting相比标准的'Let's think step by step'有什么改进？",
+        "answer": "Plan-and-Solve prompting通过显式分离“规划”和“执行”两个阶段，先制定解决问题的计划，再逐步执行，从而减少推理错误，提升多步推理的准确性。它无需人工示例，是零样本方法，可直接替代“Let's think step by step”，并在不同模型规模和复杂算术问题上表现更优。",
+        "expected_keywords": [
+          "规划",
+          "执行",
+          "分离",
+          "plan",
+          "solve",
+          "两阶段"
+        ],
+        "hit_keywords": [
+          "规划",
+          "执行",
+          "分离",
+          "plan",
+          "solve"
+        ],
+        "keyword_hit_rate": 0.8333333333333334
+      },
+      {
+        "id": 21,
+        "question": "Self-Consistency方法的核心思想是什么？",
+        "answer": "Self-Consistency方法的核心思想是：通过采样多条不同的推理路径（而非仅采用贪心解码），并对最终答案进行多数投票，从而选择最一致的答案。其直觉是，复杂推理问题通常有多种正确的思考方式，最终会导向同一个正确答案，而错误路径往往产生不同的错误答案，多数投票可以抵消随机错误。",
+        "expected_keywords": [
+          "多数投票",
+          "采样",
+          "多条路径",
+          "一致性",
+          "majority vote"
+        ],
+        "hit_keywords": [
+          "多数投票",
+          "采样"
+        ],
+        "keyword_hit_rate": 0.4
+      },
+      {
+        "id": 22,
+        "question": "LLM+P框架是如何结合大语言模型和经典规划器的？",
+        "answer": "LLM+P框架通过将自然语言问题描述转换为正式的规划领域定义，然后使用经典规划器寻找最优解，从而结合了大语言模型（擅长理解自然语言）和经典规划器（擅长规划）的优势。",
+        "expected_keywords": [
+          "PDDL",
+          "翻译",
+          "经典规划器",
+          "形式化",
+          "最优计划"
+        ],
+        "hit_keywords": [
+          "经典规划器"
+        ],
+        "keyword_hit_rate": 0.2
+      },
+      {
+        "id": 23,
+        "question": "Code as Policies (CaP)的核心思想是什么？",
+        "answer": "根据论文内容，Code as Policies (CaP)的核心思想是：利用大语言模型（LLMs）生成可执行的Python代码来控制机器人，将代码作为机器人策略的表达形式，而非自然语言。这种方法利用代码的表达力和精确性，支持复杂逻辑（如条件、循环、算术），并能通过组合API调用实现新任务的零样本泛化，且无需对LLM进行机器人特定训练。",
+        "expected_keywords": [
+          "代码",
+          "Python",
+          "机器人控制",
+          "code",
+          "policies"
+        ],
+        "hit_keywords": [
+          "代码",
+          "Python",
+          "code",
+          "policies"
+        ],
+        "keyword_hit_rate": 0.8
+      },
+      {
+        "id": 24,
+        "question": "TaskMatrix.AI的四个核心组件是什么？",
+        "answer": "根据论文内容，TaskMatrix.AI由四个关键组件组成，但来源中未具体列出这四个组件的名称。",
+        "expected_keywords": [
+          "MCFM",
+          "API平台",
+          "API选择器",
+          "动作执行器",
+          "foundation model"
+        ],
+        "hit_keywords": [],
+        "keyword_hit_rate": 0.0
+      },
+      {
+        "id": 25,
+        "question": "Graph of Thoughts相比Tree of Thoughts有什么优势？",
+        "answer": "根据论文内容，Graph of Thoughts（GoT）相比Tree of Thoughts（ToT）的优势在于：GoT支持任意图结构，允许思维合并、分解和循环，而ToT是层级结构，只能分支不能合并。这使得GoT能组合不同分支的想法，多条推理路径可汇聚，更接近人类思维方式，从而提升推理的灵活性和解决方案质量。",
+        "expected_keywords": [
+          "图",
+          "合并",
+          "循环",
+          "树",
+          "graph",
+          "tree",
+          "聚合"
+        ],
+        "hit_keywords": [
+          "图",
+          "合并",
+          "循环",
+          "graph",
+          "tree"
+        ],
+        "keyword_hit_rate": 0.7142857142857143
+      },
+      {
+        "id": 26,
+        "question": "Inner Monologue框架如何实现机器人的自适应行为？",
+        "answer": "根据论文内容，Inner Monologue框架通过让LLM维持一个持续的内部独白（internal monologue），使机器人能够推理自身进展、处理失败并适应新情况，从而实现自适应行为。实验表明，该框架在任务中能成功从失败（如掉落物体、路径受阻）中恢复，并适应环境变化。",
+        "expected_keywords": [
+          "内部独白",
+          "环境反馈",
+          "自适应",
+          "失败恢复",
+          "monologue"
+        ],
+        "hit_keywords": [
+          "内部独白",
+          "自适应",
+          "monologue"
+        ],
+        "keyword_hit_rate": 0.6
+      },
+      {
+        "id": 27,
+        "question": "LLM幻觉(Hallucination)主要分为哪两大类？",
+        "answer": "根据论文内容，LLM幻觉主要分为两大类：\n\n1. **事实性幻觉（Factuality Hallucination）**：与世界知识的事实不一致，例如陈述错误的历史日期，子类型包括实体错误、关系错误和属性错误。\n2. **忠实性幻觉（Faithfulness Hallucination）**：与提供的来源或输入不一致，例如摘要中添加了原文没有的信息，子类型包括无根据的主张和矛盾陈述。",
+        "expected_keywords": [
+          "事实性",
+          "忠实性",
+          "Factuality",
+          "Faithfulness",
+          "幻觉"
+        ],
+        "hit_keywords": [
+          "事实性",
+          "忠实性",
+          "Factuality",
+          "Faithfulness",
+          "幻觉"
+        ],
+        "keyword_hit_rate": 1.0
+      },
+      {
+        "id": 28,
+        "question": "ReAct和Reflexion的主要区别是什么？",
+        "answer": "ReAct通过生成交织的推理轨迹和行动来与环境交互，不依赖外部反馈；而Reflexion则引入自我反思机制，通过语言反馈（而非权重更新）从失败中学习，并利用评估器提供信号来改进后续决策。",
+        "expected_keywords": [
+          "单次",
+          "多次",
+          "反思",
+          "记忆",
+          "学习",
+          "trial"
+        ],
+        "hit_keywords": [
+          "反思",
+          "学习"
+        ],
+        "keyword_hit_rate": 0.3333333333333333
+      },
+      {
+        "id": 29,
+        "question": "MetaGPT和ChatDev都是多Agent软件开发框架，它们的主要区别是什么？",
+        "answer": "根据论文内容，MetaGPT和ChatDev的主要区别在于协作机制：ChatDev通过自然语言聊天实现灵活协调，强调角色分工和沟通；MetaGPT则编码标准化操作流程（SOP）到提示中，强调结构化协调和模块化输出，以提升效率和减少错误。",
+        "expected_keywords": [
+          "SOP",
+          "结构化",
+          "聊天",
+          "灵活",
+          "workflow",
+          "chat"
+        ],
+        "hit_keywords": [
+          "SOP",
+          "结构化",
+          "聊天",
+          "灵活",
+          "chat"
+        ],
+        "keyword_hit_rate": 0.8333333333333334
+      },
+      {
+        "id": 30,
+        "question": "在RAG系统中，有哪些方法可以减少LLM幻觉？请至少说出3种",
+        "answer": "根据提供的论文内容，减少LLM幻觉的方法包括：\n\n1. **使用RAG（检索增强生成）**：作为最有效的缓解策略之一，通过检索外部知识来辅助生成。\n2. **结合检测机制**：论文强调“检测与预防同样重要”，通过检测幻觉来识别和纠正错误输出。\n3. **采用整体性管理方法**：论文指出幻觉管理需要“整体性方法”，即综合多种策略而非单一手段。\n\n（注：其他来源如ReAct、ToT等未直接提及幻觉减少，故不纳入。）",
+        "expected_keywords": [
+          "RAG",
+          "检索增强",
+          "验证",
+          "投票",
+          "事实核查",
+          "过滤"
+        ],
+        "hit_keywords": [
+          "RAG",
+          "检索增强"
+        ],
+        "keyword_hit_rate": 0.3333333333333333
+      }
+    ]
+  },
+  "stats": {
+    "n_papers": 20,
+    "n_chunks": 227,
+    "n_questions": 30
+  }
+}

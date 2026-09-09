@@ -1,0 +1,67 @@
+Inner Monologue: Embodied Reasoning through Planning with Language Models
+Authors: Fei Xia, Ted Xiao, Harris Chan, Jacky Liang, Pete Florence, Andy Zeng, Jonathan Tompson, Igor Mordatch, Yevgen Chebotar, Pierre Sermanet, et al.
+Published: CoRL 2022
+
+Abstract:
+Recent works have shown that large language models can encode a broad range of semantic and commonsense knowledge that may be useful for language-guided robots. However, it remains unclear how to best leverage these models for robot control, especially in environments that require grounding language in physical observations and actions. In this paper, we propose Inner Monologue, a framework that uses language models for embodied reasoning by maintaining an internal monologue of thoughts.
+
+Core Method:
+Inner Monologue is a framework for robot control that uses LLMs to maintain a running internal monologue, enabling the robot to reason about its progress, handle failures, and adapt to new situations.
+
+The Inner Monologue Framework:
+1. Task Instruction:
+   - User provides a high-level goal in natural language
+   - Example: "Put the apple in the drawer"
+
+2. Language Model Planning:
+   - The LLM generates a plan or sequence of actions
+   - Uses its commonsense knowledge to determine appropriate steps
+   - The plan is expressed in natural language
+
+3. Environment Feedback:
+   - The robot executes actions and receives observations
+   - Success/failure signals from the environment
+   - Perception results (object detected, grasp successful, etc.)
+
+4. Internal Monologue:
+   - The LLM maintains a running commentary of thoughts
+   - Reasons about whether actions succeeded
+   - Adjusts plans based on feedback
+   - Asks itself questions like "Did I pick up the apple?"
+   - The monologue is fed back into the LLM for subsequent decisions
+
+5. Adaptive Execution:
+   - If an action fails, the LLM proposes alternatives
+   - If the environment changes, the plan is updated
+   - The robot continues until the goal is achieved
+
+Key Features:
+- Closed-loop reasoning with environment feedback
+- Natural language as the reasoning medium
+- Handles failures and unexpected situations
+- No fine-tuning required - uses pretrained LLMs
+- The internal monologue makes reasoning interpretable
+
+Why Inner Monologue Works:
+- Language models have rich commonsense knowledge
+- The monologue provides context for decision making
+- Feedback from the environment grounds the reasoning
+- The approach is more robust than open-loop planning
+- Natural language enables flexible error recovery
+
+Experiments:
+Inner Monologue was evaluated on robot manipulation tasks:
+- Successfully completed long-horizon tasks with multiple steps
+- Recovered from failures (dropped objects, blocked paths)
+- Adapted to changing environments
+- Outperformed baselines that didn't use language feedback
+- The internal monologue improved task success rate by 30%+
+- Human evaluators found the reasoning process interpretable
+
+Key Findings:
+- LLMs can effectively reason about robot tasks with feedback
+- Internal monologue enables adaptive behavior
+- The approach handles real-world uncertainty better
+- Language provides a flexible medium for robot reasoning
+- Inner Monologue demonstrates the value of closed-loop LLM control
+- The framework can be applied to various robot platforms

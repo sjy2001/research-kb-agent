@@ -1,0 +1,63 @@
+A Survey on Large Language Model based Autonomous Agents
+Authors: Lei Wang, Chen Ma, Xueyang Feng, Zeyu Zhang, Hao Yang, Jingsen Zhang, Jiakai Tang, Xu Chen, Yankai Lin, Wayne Xin Zhao, Zhewei Wei, Ji-Rong Wen
+Published: 2023
+
+Abstract:
+Autonomous agents have long been a research focus in artificial intelligence. With the emergence of large language models (LLMs), there has been a surge of interest in LLM-based autonomous agents due to their impressive performance. This paper provides a comprehensive survey of LLM-based autonomous agents, covering their construction, application, and evaluation.
+
+Core Framework:
+The survey proposes a unified framework for LLM-based autonomous agents, consisting of four modules:
+
+1. Profile Module:
+   - Defines the agent's identity, role, and characteristics
+   - Can be hand-crafted or automatically generated
+   - Includes personality, background, expertise, and goals
+   - Enables role-specific behavior and domain adaptation
+
+2. Memory Module:
+   - Sensory memory: brief storage of immediate perceptions
+   - Short-term memory: working memory for current task context
+   - Long-term memory: persistent storage of past experiences
+   - Memory operations: writing, reading, updating, forgetting
+   - Memory types: textual, visual, multimodal
+
+3. Planning Module:
+   - Planning with feedback: iterative refinement based on environment feedback
+   - Planning without feedback: decomposition and reasoning without external feedback
+   - Techniques: chain-of-thought, tree-of-thoughts, task decomposition
+   - Subgoal ordering and dependency management
+
+4. Action Module:
+   - Action formulation: translating decisions into executable actions
+   - Tool use: calling external APIs, functions, and services
+   - Multi-modal actions: text, code, image, speech
+   - Action execution and environment interaction
+
+Agent Classification:
+The survey categorizes agents by:
+- Single-agent vs. multi-agent systems
+- LLM-centric vs. LLM-as-brain architectures
+- Task-oriented vs. simulation-oriented agents
+- Domain-specific vs. general-purpose agents
+
+Applications:
+The survey covers applications in:
+- Social sciences: psychology, sociology, economics simulations
+- Natural science: research assistance, experiment design, data analysis
+- Engineering: software development, system design, testing
+- Creative work: writing, art, music, game design
+- Practical applications: customer service, education, healthcare
+
+Evaluation:
+Evaluation dimensions include:
+- Task performance: accuracy, completion rate, efficiency
+- Agent capabilities: reasoning, planning, memory, tool use
+- Social behaviors: cooperation, communication, role-playing
+- Safety and alignment: helpfulness, harmlessness, honesty
+
+Key Challenges:
+- Context window limitations for long-term memory
+- Hallucination and factual consistency
+- Evaluation standardization
+- Computational cost and efficiency
+- Safety and ethical considerations

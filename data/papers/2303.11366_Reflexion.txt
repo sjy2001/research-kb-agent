@@ -1,0 +1,39 @@
+Reflexion: Language Agents with Verbal Reinforcement Learning
+Authors: Noah Shinn, Federico Cassano, Edward Berman, Ashwin Gopinath, Karthik Narasimhan, Shunyu Yao
+Published: NeurIPS 2023
+
+Abstract:
+Large language models (LLMs) have been increasingly used to interact with external environments as goal-driven agents. However, it remains challenging for these language agents to quickly and efficiently learn from trial-and-error as traditional reinforcement learning methods require extensive training samples and expensive model fine-tuning. We propose Reflexion, a novel framework to reinforce language agents not by updating weights, but instead through linguistic feedback.
+
+Core Method:
+Reflexion is a framework that enables language agents to learn from failures through verbal self-reflection, without updating model weights. The key innovation is replacing scalar reward signals with natural language feedback.
+
+The Reflexion architecture consists of three components:
+1. Actor: Generates task solutions based on observations and long-term memory
+2. Evaluator: Scores the actor's outputs and provides feedback signals
+3. Self-Reflection: Generates verbal reinforcement cues based on task feedback
+
+The learning process:
+1. The Actor attempts a task and produces a trajectory
+2. The Evaluator assesses the outcome (success/failure, scalar reward)
+3. The Self-Reflection module generates natural language reflection on what went wrong
+4. The reflection is stored in an episodic memory buffer
+5. In subsequent trials, the Actor uses accumulated reflections to improve decision-making
+
+Key Features:
+- No gradient updates required - learning happens purely through context
+- Supports various feedback types: scalar values, free-form language, external or internal signals
+- Maintains persistent memory across multiple trials
+- Can be combined with any base agent architecture (ReAct, chain-of-thought, etc.)
+
+Experiments:
+Reflexion was evaluated on three domains:
+1. Decision-Making (ALFWorld): Achieved 91% success rate, significantly outperforming ReAct baseline (73%)
+2. Reasoning (HotpotQA): Improved accuracy by 13% over baseline through iterative self-correction
+3. Programming (HumanEval, LeetCode): Achieved state-of-the-art pass@1 rates, with 80% on HumanEval and 91% on LeetCode Hard
+
+Key Findings:
+- Verbal reinforcement is more efficient than scalar rewards for language agents
+- Self-reflection enables rapid learning from just a few failures
+- The approach is model-agnostic and can be applied to any LLM
+- Reflexion demonstrates emergent generalization across related tasks

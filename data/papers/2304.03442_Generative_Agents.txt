@@ -1,0 +1,48 @@
+Generative Agents: Interactive Simulacra of Human Behavior
+Authors: Joon Sung Park, Joseph C. O'Brien, Carrie J. Cai, Meredith Ringel Morris, Percy Liang, Michael S. Bernstein
+Published: UIST 2023
+
+Abstract:
+Believable proxies of human behavior can empower interactive applications ranging from immersive environments to rehearsal spaces for interpersonal communication to prototyping tools. In this paper, we introduce generative agents, computational software agents that simulate believable human behavior. Generative agents wake up, cook breakfast, and head to work; artists paint, while authors write; they form opinions, notice each other, and initiate conversations; they remember and reflect on days past as they plan the next day.
+
+Core Method:
+Generative agents are LLM-powered agents that simulate believable human behavior in a sandbox environment. The architecture includes three key components:
+
+1. Memory Stream:
+   - A comprehensive record of the agent's experiences
+   - Each memory has a creation timestamp, access timestamp, and importance score
+   - Stores observations, reflections, and plans
+   - Retrieval is based on recency, importance, and relevance
+
+2. Reflection Mechanism:
+   - Agents periodically reflect on their experiences
+   - Reflections are higher-level abstract thoughts generated from memories
+   - Reflection is triggered when the sum of importance scores of recent events exceeds a threshold
+   - Reflections themselves become memories, enabling hierarchical reasoning
+
+3. Planning and Reacting:
+   - Agents create daily plans based on their characteristics and past experiences
+   - Plans can be revised based on new observations
+   - Agents react to unexpected events in their environment
+   - Dialogue is generated based on the agent's memories and the conversation history
+
+The agent architecture supports:
+- Perception of the environment
+- Memory retrieval and synthesis
+- Reflection and abstract thinking
+- Long-term and short-term planning
+- Natural conversation with other agents
+
+Experiments:
+The system was implemented as a 25-agent simulation in a Smallville-style town:
+- Agents exhibited emergent social behaviors: information diffusion, relationship formation, coordinated activities
+- A Valentine's Day party invitation spread through the agent social network
+- Agents formed opinions about each other based on interactions
+- Human evaluators found generative agents more believable than baselines (no reflection, no planning, no memory)
+
+Key Findings:
+- The memory stream is critical for coherent behavior over time
+- Reflection enables agents to form higher-level inferences
+- Planning creates realistic daily routines
+- Inter-agent communication leads to emergent social dynamics
+- The architecture generalizes to different personalities and scenarios

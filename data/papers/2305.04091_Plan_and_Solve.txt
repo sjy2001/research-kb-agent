@@ -1,0 +1,62 @@
+Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models
+Authors: Lei Wang, Wanyu Xu, Yihuai Lan, Zhiqiang Hu, Roy Ka-Wei Lee, Ee-Peng Lim
+Published: ACL 2023
+
+Abstract:
+Large language models have shown impressive performance on various tasks. However, their reasoning abilities are still limited, especially for complex tasks that require multi-step reasoning. Chain-of-thought (CoT) prompting has been proposed to improve reasoning by generating intermediate reasoning steps. However, CoT prompting requires manually crafted examples, which is time-consuming and may not generalize well. In this paper, we propose Plan-and-Solve (PS) prompting, a zero-shot prompting strategy that improves upon zero-shot CoT.
+
+Core Method:
+Plan-and-Solve prompting is a zero-shot prompting technique that improves multi-step reasoning by explicitly separating planning and execution. It addresses the limitations of standard zero-shot chain-of-thought ("Let's think step by step").
+
+The PS Prompting Framework:
+1. Planning Phase:
+   - First, the model generates a plan to solve the problem
+   - The plan breaks the problem into smaller sub-tasks
+   - This provides a structured approach before diving into details
+   - The plan serves as a roadmap for the solution
+
+2. Solving Phase:
+   - Then, the model executes the plan step by step
+   - Each sub-task is addressed according to the plan
+   - Intermediate results are computed and tracked
+   - The final answer is derived from the completed steps
+
+The standard PS prompt:
+"Let's first understand the problem and devise a plan to solve the problem. Then, let's carry out the plan and solve the problem step by step."
+
+PS+ Variant:
+An enhanced version that adds more specific instructions:
+- Pay attention to calculation details
+- Extract relevant variables and their values
+- Be careful about units and conversions
+- Double-check calculations
+
+Key Features:
+- Zero-shot: no example demonstrations required
+- Explicit planning before execution
+- Reduces calculation errors and missing steps
+- More structured than standard CoT
+- Easy to implement - just a different prompt template
+
+Why PS Works Better than Zero-Shot CoT:
+1. Planning reduces missing steps - the model first outlines what needs to be done
+2. Separation of concerns - planning and execution are distinct phases
+3. Better organization - the solution follows a logical structure
+4. Reduced hallucination - the plan constrains the reasoning space
+5. Improved accuracy - explicit planning catches errors early
+
+Experiments:
+Plan-and-Solve was evaluated on mathematical reasoning benchmarks:
+- GSM8K: PS achieved 62.7% vs 58.5% for zero-shot CoT
+- MultiArith: PS achieved 94.3% vs 92.0% for zero-shot CoT
+- AddSub: PS achieved 87.5% vs 84.3% for zero-shot CoT
+- SVAMP: PS achieved 82.1% vs 78.6% for zero-shot CoT
+- PS+ (with more detailed instructions) achieved even higher performance
+
+Key Findings:
+- Explicit planning significantly improves zero-shot reasoning
+- The plan-then-execute structure reduces errors
+- PS is a simple drop-in replacement for "Let's think step by step"
+- The improvement is consistent across different model sizes
+- PS+ with detailed instructions further enhances performance
+- The approach is particularly effective for multi-step arithmetic problems

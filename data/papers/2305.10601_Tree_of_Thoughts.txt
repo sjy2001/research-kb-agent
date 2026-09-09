@@ -1,0 +1,59 @@
+Tree of Thoughts: Deliberate Problem Solving with Large Language Models
+Authors: Shunyu Yao, Dian Yu, Jeffrey Zhao, Izhak Shafran, Thomas L. Griffiths, Yuan Cao, Karthik Narasimhan
+Published: NeurIPS 2023
+
+Abstract:
+Language models are increasingly being deployed for general problem solving across a wide range of tasks, but are still confined to token-level, left-to-right decision-making processes during inference. This means they can fall short in tasks that require exploration, strategic lookahead, or where initial decisions play a pivotal role. To surmount these challenges, we introduce a new framework for language model inference, Tree of Thoughts (ToT), which generalizes over the popular Chain of Thought approach to prompting language models.
+
+Core Method:
+Tree of Thoughts (ToT) is a framework that enables LLMs to explore multiple reasoning paths simultaneously, rather than following a single linear chain of thought. It allows deliberate problem solving through search over a tree of thoughts.
+
+Key Concepts:
+1. Thought as a Unit:
+   - A "thought" is a coherent language sequence that serves as an intermediate step
+   - Each thought represents a partial solution or reasoning step
+   - Thoughts are generated and evaluated by the LLM
+   - Multiple thoughts can be explored in parallel
+
+2. Tree Structure:
+   - Root: initial problem or input
+   - Branches: possible next thoughts or reasoning steps
+   - The tree grows as the model explores alternatives
+   - Leaves: complete solutions or dead ends
+
+3. Search Algorithms:
+   - BFS (Breadth-First Search): explore level by level, maintain best candidates
+   - DFS (Depth-First Search): explore one path deeply, backtrack when stuck
+   - The search algorithm can be chosen based on task characteristics
+
+4. Thought Generation:
+   - Given a state, generate candidate next thoughts
+   - Can use sampling (diverse generation) or proposal (structured generation)
+   - The number of candidates is a controllable parameter
+
+5. State Evaluation:
+   - Evaluate how promising each thought/state is
+   - Use value function or LLM self-evaluation
+   - Evaluation can be per-state (how good is this partial solution?)
+   - Or per-vote (multiple samples, majority vote)
+
+The ToT Process:
+1. Decompose the problem into thought steps
+2. Generate candidate thoughts at each step
+3. Evaluate candidates using the LLM
+4. Search (BFS/DFS) to explore promising paths
+5. Output the best complete solution
+
+Experiments:
+ToT was evaluated on three tasks requiring deliberate planning:
+1. Game of 24: ToT achieved 74% success rate vs 4% for chain-of-thought
+2. Creative Writing: ToT produced more coherent and high-quality stories
+3. Mini Crosswords: ToT achieved 60% word-level success vs 16% for CoT
+
+Key Findings:
+- ToT significantly outperforms chain-of-thought on tasks requiring planning
+- The ability to backtrack and explore alternatives is crucial
+- LLM self-evaluation works surprisingly well for guiding search
+- ToT makes the model's reasoning process more transparent
+- The framework is general and can be applied to many problem types
+- There is a trade-off between exploration breadth and computational cost
