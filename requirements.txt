@@ -1,29 +1,28 @@
-# 核心依赖
-langchain==0.3.20
-langchain-openai==0.2.10
-langgraph==0.2.45
+# 核心依赖（宽松版本，减少冲突）
+langchain>=0.3.0,<0.4
+langchain-openai>=0.2.0
+langgraph>=0.2.0
 
-# 向量数据库（固定版本，避免兼容性问题）
-chromadb==0.5.23
+# 向量数据库
+chromadb>=0.5.0,<0.6
 
 # 文本向量化与重排序
-sentence-transformers==3.3.1
-rank-bm25==0.2.2
-torch==2.5.1
+sentence-transformers>=3.0.0
+rank-bm25>=0.2.2
 
 # PDF 解析
-PyMuPDF==1.25.1
+PyMuPDF>=1.24.0
 
 # Web 框架
-fastapi==0.115.6
-uvicorn==0.34.0
-python-multipart==0.0.20
+fastapi>=0.110.0
+uvicorn>=0.29.0
+python-multipart>=0.0.9
 
 # 前端
-streamlit==1.41.1
+streamlit>=1.33.0
 
 # 工具
-python-dotenv==1.0.1
-pydantic==2.10.4
-numpy<2.0
-tqdm==4.67.1
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+numpy>=1.26.0,<2.0
+tqdm>=4.66.0

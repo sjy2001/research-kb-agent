@@ -21,6 +21,8 @@ from .embedder import TextEmbedder
 from .vector_store import VectorStore
 from .retriever import HybridRetriever, BM25Retriever, Reranker
 from .query_expander import QueryExpander
+from .query_rewriter import AcademicQueryRewriter, get_rewriter
+from .document_parser import parse_document, get_supported_extensions
 
 
 # ============ 提示词模板 ============
@@ -78,6 +80,7 @@ class ResearchKnowledgeBaseAgent:
             self.reranker
         )
         self.query_expander = QueryExpander()
+        self.query_rewriter = get_rewriter()
 
         # 初始化 LLM
         self.llm = ChatOpenAI(
@@ -140,6 +143,70 @@ class ResearchKnowledgeBaseAgent:
             "total_chunks": len(chunks),
         }
 
+    def index_file(self, file_path: str) -> Dict[str, Any]:
+        """
+        索引单个文件（支持 PDF、TXT、DOCX）
+
+        Args:
+            file_path: 文件路径
+
+        Returns:
+            索引结果统计
+        """
+        try:
+            # 1. 统一解析文档
+            doc_info = parse_document(file_path)
+
+            # 2. 分块
+            chunks = chunk_paper(doc_info.pages, doc_info.metadata)
+
+            if not chunks:
+                return {"success": False, "error": "No text extracted from file", "file": file_path}
+
+            # 3. 向量化
+            texts = [chunk.text for chunk in chunks]
+            embeddings = self.embedder.embed(texts)
+
+            # 4. 存入向量库
+            self.vector_store.add_chunks(chunks, embeddings)
+
+            # 5. 更新 BM25 索引
+            self._all_chunks.extend(chunks)
+            self.bm25_retriever.build_index(self._all_chunks)
+
+            return {
+                "success": True,
+                "paper_id": doc_info.metadata.paper_id,
+                "title": doc_info.metadata.title,
+                "authors": doc_info.metadata.authors,
+                "year": doc_info.metadata.year,
+                "total_pages": doc_info.metadata.total_pages,
+                "total_chunks": len(chunks),
+                "file_type": Path(file_path).suffix.lower(),
+            }
+        except Exception as e:
+            return {
+                "success": False,
+                "file": file_path,
+                "error": str(e),
+            }
+
+    def index_files(self, file_paths: List[str]) -> List[Dict[str, Any]]:
+        """
+        批量索引多个文件
+
+        Args:
+            file_paths: 文件路径列表
+
+        Returns:
+            每个文件的索引结果
+        """
+        results = []
+        for file_path in file_paths:
+            result = self.index_file(file_path)
+            results.append(result)
+        return results
+
     def index_directory(self, directory: str = None) -> List[Dict[str, Any]]:
         """
         批量索引目录下的所有 PDF
@@ -183,13 +250,38 @@ class ResearchKnowledgeBaseAgent:
         Returns:
             回答结果，包含答案和来源
         """
-        # 1. 查询扩展
-        expanded_queries = self.query_expander.expand(question)
+        # 1. 智能查询改写（自研创新点）
+        rewrite_result = self.query_rewriter.rewrite(question)
 
-        # 2. 混合检索（用扩展后的第一个查询）
+        # 2. 查询扩展（用改写后的查询进行扩展）
+        expanded_queries = []
+        for rewritten_q in rewrite_result.rewritten_queries:
+            expanded = self.query_expander.expand(rewritten_q)
+            expanded_queries.extend(expanded)
+        # 保留原始问题的扩展
+        expanded_queries.extend(self.query_expander.expand(question))
+        # 去重
+        seen_q = set()
+        unique_expanded = []
+        for q in expanded_queries:
+            if q not in seen_q:
+                seen_q.add(q)
+                unique_expanded.append(q)
+        expanded_queries = unique_expanded[:4]  # 最多用4个查询
+
+        # 3. 混合检索
         all_docs = []
         retrieval_details = {
             "expanded_queries": expanded_queries,
+            "rewrite_info": {
+                "original_query": rewrite_result.original_query,
+                "question_type": rewrite_result.question_type,
+                "question_type_desc": rewrite_result.question_type_desc,
+                "rewritten_queries": rewrite_result.rewritten_queries,
+                "extracted_keywords": rewrite_result.extracted_keywords,
+                "rewrite_reason": rewrite_result.rewrite_reason,
+                "confidence": rewrite_result.confidence,
+            },
             "vector_results": [],
             "bm25_results": [],
             "fused_results": [],

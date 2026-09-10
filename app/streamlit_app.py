@@ -34,29 +34,36 @@ with st.sidebar:
     st.markdown("---")
 
     # 上传文件
-    st.subheader("📄 上传论文")
-    uploaded_file = st.file_uploader(
-        "选择 PDF 文件",
-        type=["pdf"],
-        help="上传学术论文 PDF 进行索引"
+    st.subheader("📄 上传文档")
+    uploaded_files = st.file_uploader(
+        "选择 PDF / TXT / Word 文件（可多选）",
+        type=["pdf", "txt", "docx"],
+        accept_multiple_files=True,
+        help="支持批量上传 PDF、TXT、DOCX 格式的学术文档"
     )
 
-    if uploaded_file:
+    if uploaded_files:
         if st.button("开始索引", type="primary"):
-            with st.spinner("正在解析和索引论文..."):
-                # 保存临时文件
-                temp_path = Path("data/papers") / uploaded_file.name
-                temp_path.parent.mkdir(parents=True, exist_ok=True)
-                with open(temp_path, "wb") as f:
-                    f.write(uploaded_file.getbuffer())
+            with st.spinner(f"正在解析和索引 {len(uploaded_files)} 个文档..."):
+                success_count = 0
+                for uploaded_file in uploaded_files:
+                    # 保存临时文件
+                    temp_path = Path("data/papers") / uploaded_file.name
+                    temp_path.parent.mkdir(parents=True, exist_ok=True)
+                    with open(temp_path, "wb") as f:
+                        f.write(uploaded_file.getbuffer())
 
-                # 索引
-                result = st.session_state.agent.index_pdf(str(temp_path))
-                if result.get("success"):
-                    st.success(f"✅ 索引完成: {result['title']}")
-                    st.info(f"共 {result['total_chunks']} 个文本块")
-                else:
-                    st.error(f"❌ 索引失败: {result.get('error')}")
+                    # 索引
+                    result = st.session_state.agent.index_file(str(temp_path))
+                    if result.get("success"):
+                        success_count += 1
+                        st.success(f"✅ {result['title']} ({result['total_chunks']} 块)")
+                    else:
+                        st.error(f"❌ {uploaded_file.name}: {result.get('error', '未知错误')}")
+
+                if success_count > 0:
+                    st.info(f"完成！成功索引 {success_count}/{len(uploaded_files)} 个文档")
+                    st.rerun()
 
     st.markdown("---")
 
@@ -139,11 +146,42 @@ if prompt := st.chat_input("输入你的问题，例如：这篇论文的核心�
                 with st.expander("🔍 检索过程详情", expanded=False):
                     details = result["retrieval_details"]
 
+                    # ===== 智能查询理解（自研创新点）=====
+                    if details.get("rewrite_info"):
+                        rw = details["rewrite_info"]
+                        st.markdown("### 🧠 智能查询理解")
+
+                        # 问题类型 + 置信度
+                        col_type, col_conf = st.columns([2, 1])
+                        with col_type:
+                            st.info(f"**问题类型**：{rw['question_type_desc']}")
+                        with col_conf:
+                            st.metric("识别置信度", f"{rw['confidence']:.0%}")
+
+                        # 提取的关键词
+                        st.markdown("**🔑 提取关键词（按权重）**")
+                        if rw.get("extracted_keywords"):
+                            kw_cols = st.columns(len(rw["extracted_keywords"][:6]))
+                            for i, kw in enumerate(rw["extracted_keywords"][:6]):
+                                label = f"⭐ {kw['word']}" if kw["is_academic"] else kw["word"]
+                                kw_cols[i].metric(label, f"×{kw['weight']}")
+
+                        # 改写过程
+                        st.markdown("**✏️ 查询改写过程**")
+                        st.text(f"原始问题：{rw['original_query']}")
+                        st.text(f"改写理由：{rw['rewrite_reason']}")
+
+                        st.markdown("**改写后的检索查询：**")
+                        for i, q in enumerate(rw["rewritten_queries"], 1):
+                            st.code(f"查询{i}: {q}", language=None)
+
+                        st.markdown("---")
+
                     # 查询扩展
                     if details.get("expanded_queries"):
                         st.markdown("**📝 查询扩展**")
-                        cols = st.columns(len(details["expanded_queries"]))
-                        for i, q in enumerate(details["expanded_queries"]):
+                        cols = st.columns(min(len(details["expanded_queries"]), 4))
+                        for i, q in enumerate(details["expanded_queries"][:4]):
                             cols[i].info(q)
 
                     st.markdown("---")

@@ -4,7 +4,7 @@
 """
 from pathlib import Path
 
-SAVE_DIR = Path(__file__).parent.parent / "data" / "papers"
+SAVE_DIR = Path(__file__).parent / "test_corpus"
 SAVE_DIR.mkdir(parents=True, exist_ok=True)
 
 PAPERS = {

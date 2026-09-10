@@ -24,7 +24,7 @@ from src.query_expander import QueryExpander
 from src.pdf_parser import PaperMetadata, ParsedPage
 
 EVAL_DIR = Path(__file__).parent
-PAPERS_DIR = EVAL_DIR.parent / "data" / "papers"
+TEST_CORPUS_DIR = EVAL_DIR / "test_corpus"
 QUESTIONS_FILE = EVAL_DIR / "test_questions.json"
 RESULTS_FILE = EVAL_DIR / "evaluation_results.json"
 REPORT_FILE = EVAL_DIR / "evaluation_report.md"
@@ -43,7 +43,7 @@ def index_text_files():
     chunker = AcademicChunker()
 
     all_chunks = []
-    txt_files = sorted(PAPERS_DIR.glob("*.txt"))
+    txt_files = sorted(TEST_CORPUS_DIR.glob("*.txt"))
     print(f"找到 {len(txt_files)} 个文本文件")
 
     for txt_file in txt_files:
