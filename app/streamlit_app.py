@@ -74,13 +74,21 @@ with st.sidebar:
         st.metric("已索引论文", stats["total_papers"])
         st.metric("文本块总数", stats["total_chunks"])
 
-    # 显示已索引论文
+    # 显示已索引论文（支持单独删除）
     stats = st.session_state.agent.get_stats()
     if stats["papers"]:
         st.subheader("📋 已索引论文")
-        for paper in stats["papers"][:10]:
+        for paper in stats["papers"]:
             year = f" ({paper['year']})" if paper.get('year') else ""
-            st.text(f"• {paper['title'][:50]}{year}")
+            col_title, col_del = st.columns([4, 1])
+            with col_title:
+                st.text(f"• {paper['title'][:45]}{year}")
+            with col_del:
+                if st.button("🗑️", key=f"del_{paper['paper_id']}", help="删除这篇论文"):
+                    result = st.session_state.agent.remove_paper(paper['paper_id'])
+                    if result.get("success"):
+                        st.success(f"已删除 {result['removed_chunks']} 个文本块")
+                        st.rerun()
 
     st.markdown("---")
 

@@ -419,6 +419,18 @@ class ResearchKnowledgeBaseAgent:
         self._all_chunks = []
         self.bm25_retriever = BM25Retriever()
 
+    def remove_paper(self, paper_id: str) -> Dict[str, Any]:
+        """删除指定论文"""
+        self.vector_store.delete_paper(paper_id)
+        before_count = len(self._all_chunks)
+        self._all_chunks = [c for c in self._all_chunks if c.paper_id != paper_id]
+        removed_count = before_count - len(self._all_chunks)
+        if self._all_chunks:
+            self.bm25_retriever.build_index(self._all_chunks)
+        else:
+            self.bm25_retriever = BM25Retriever()
+        return {'success': True, 'paper_id': paper_id, 'removed_chunks': removed_count}
+
 
 # 全局单例
 _agent_instance: Optional[ResearchKnowledgeBaseAgent] = None
