@@ -359,8 +359,15 @@ class ResearchKnowledgeBaseAgent:
             web_results = self.web_searcher.search(question, max_results=5)
             if web_results:
                 web_context = self.web_searcher.format_for_context(web_results)
-                # 联网搜索时，不用知识库的不相关内容，只用搜索结果
-                messages[-1] = HumanMessage(content=user_prompt + "\n\n" + web_context)
+                # 联网搜索时，完全不用知识库内容，只用搜索结果
+                web_prompt = f"""请基于以下联网搜索结果回答问题。
+
+{web_context}
+
+用户问题：{question}
+
+请回答问题，并在答案中标注信息来源链接。如果搜索结果不足以回答，请说明。"""
+                messages[-1] = HumanMessage(content=web_prompt)
                 # 清空来源，因为回答基于联网搜索
                 unique_docs = []
 
