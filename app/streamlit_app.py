@@ -108,9 +108,6 @@ with st.sidebar:
     with col2:
         st.metric("调用次数", balance_info["total_calls"])
 
-    st.caption(f"已用 Token: {balance_info['used_tokens']:,}")
-    st.caption(f"输入: {balance_info['prompt_tokens']:,} | 输出: {balance_info['completion_tokens']:,}")
-
     st.markdown("---")
 
     # 清空知识库

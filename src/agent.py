@@ -347,14 +347,10 @@ class ResearchKnowledgeBaseAgent:
 
         messages.append(HumanMessage(content=user_prompt))
 
-        # 4.5 判断是否需要联网搜索回退
+        # 4.5 判断是否需要联网搜索回退（只有完全没有检索结果时才触发）
         web_results = []
         use_web_search = False
-        if unique_docs:
-            top_score = max(doc.get("score", 0) for doc in unique_docs)
-            if top_score < self.web_search_threshold:
-                use_web_search = True
-        else:
+        if not unique_docs:
             use_web_search = True
 
         if use_web_search:
