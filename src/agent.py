@@ -341,6 +341,44 @@ class ResearchKnowledgeBaseAgent:
 
         messages.append(HumanMessage(content=user_prompt))
 
+        # 4.5 判断是否为无关问题（知识库中没有相关内容）
+        top_score = 0.0
+        if unique_docs:
+            top_score = max(doc.get("score", 0) for doc in unique_docs)
+
+        if not unique_docs or top_score < 0.5:
+            # 无关问题：直接返回引导提示，不调用 LLM
+            guide_answer = f"""📚 知识库中未找到与您的问题相关的论文内容。
+
+为了更准确地回答您的问题，请提供以下信息：
+
+**1. 具体的专业名词**
+   - 例如：BERT、Transformer、扩散模型、强化学习等
+
+**2. 论文名称或作者**
+   - 例如："Attention Is All You Need"、Vaswani 等
+
+**3. 研究方向或领域**
+   - 例如：自然语言处理、计算机视觉、推荐系统等
+
+**使用建议：**
+- 您可以在左侧上传相关的 PDF/Word/TXT 论文
+- 上传后系统会自动建立索引，即可针对该论文内容提问
+- 提问时尽量使用论文中出现的专业术语
+
+当前知识库中已索引的论文主题主要涉及：大语言模型智能体、推理与规划、具身智能等方向。"""
+
+            result = {
+                "answer": guide_answer,
+                "sources": [],
+                "retrieved_count": 0,
+                "expanded_queries": expanded_queries,
+                "is_irrelevant": True,
+            }
+            if return_retrieval_details:
+                result["retrieval_details"] = retrieval_details
+            return result
+
         # 5. 调用 LLM
         response = self.llm.invoke(messages)
 
