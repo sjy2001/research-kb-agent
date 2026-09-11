@@ -28,5 +28,4 @@ numpy>=1.26.0,<2.0
 tqdm>=4.66.0
 
 # 联网搜索
-duckduckgo-search>=4.0.0
 requests>=2.28.0
