@@ -346,14 +346,19 @@ class ResearchKnowledgeBaseAgent:
         messages.append(HumanMessage(content=user_prompt))
 
         # 4.5 判断是否需要联网搜索回退
-        # 规则：完全没有结果，或最高相似度低于0.3（说明结果不相关），则触发联网搜索
+        # 规则1：问题包含"搜索/查一下/联网/百度"等关键词，直接联网搜索
+        # 规则2：完全没有结果，或最高相似度低于0.6（说明结果不相关），触发联网搜索
         web_results = []
         use_web_search = False
-        top_score = 0.0
-        if unique_docs:
-            top_score = max(doc.get("score", 0) for doc in unique_docs)
-        if not unique_docs or top_score < 0.3:
+        search_keywords = ['搜索', '查一下', '查找', '联网', '百度', 'google', 'bing', '搜一下']
+        if any(kw in question.lower() for kw in search_keywords):
             use_web_search = True
+        else:
+            top_score = 0.0
+            if unique_docs:
+                top_score = max(doc.get("score", 0) for doc in unique_docs)
+            if not unique_docs or top_score < 0.6:
+                use_web_search = True
 
         if use_web_search:
             web_results = self.web_searcher.search(question, max_results=5)
