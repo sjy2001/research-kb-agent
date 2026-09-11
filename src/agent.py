@@ -23,6 +23,8 @@ from .retriever import HybridRetriever, BM25Retriever, Reranker
 from .query_expander import QueryExpander
 from .query_rewriter import AcademicQueryRewriter, get_rewriter
 from .document_parser import parse_document, get_supported_extensions
+from .web_search import get_web_searcher
+from .balance_checker import get_balance_checker
 
 
 # ============ 提示词模板 ============
@@ -81,6 +83,10 @@ class ResearchKnowledgeBaseAgent:
         )
         self.query_expander = QueryExpander()
         self.query_rewriter = get_rewriter()
+        self.web_searcher = get_web_searcher()
+        self.balance_checker = get_balance_checker()
+        # 联网搜索阈值：最高相似度低于此值则触发联网搜索
+        self.web_search_threshold = 0.3
 
         # 初始化 LLM
         self.llm = ChatOpenAI(
@@ -341,8 +347,36 @@ class ResearchKnowledgeBaseAgent:
 
         messages.append(HumanMessage(content=user_prompt))
 
+        # 4.5 判断是否需要联网搜索回退
+        web_results = []
+        use_web_search = False
+        if unique_docs:
+            top_score = max(doc.get("score", 0) for doc in unique_docs)
+            if top_score < self.web_search_threshold:
+                use_web_search = True
+        else:
+            use_web_search = True
+
+        if use_web_search:
+            web_results = self.web_searcher.search(question, max_results=5)
+            if web_results:
+                web_context = self.web_searcher.format_for_context(web_results)
+                # 在用户消息中追加联网搜索结果
+                messages[-1] = HumanMessage(content=user_prompt + "\n\n" + web_context)
+
         # 5. 调用 LLM
         response = self.llm.invoke(messages)
+
+        # 5.1 记录 token 用量
+        try:
+            usage = response.response_metadata.get("token_usage", {})
+            if usage:
+                self.balance_checker.record_usage(
+                    prompt_tokens=usage.get("prompt_tokens", 0),
+                    completion_tokens=usage.get("completion_tokens", 0),
+                )
+        except Exception:
+            pass
 
         # 6. 整理来源
         sources = self._format_sources(unique_docs)
@@ -352,6 +386,8 @@ class ResearchKnowledgeBaseAgent:
             "sources": sources,
             "retrieved_count": len(unique_docs),
             "expanded_queries": expanded_queries,
+            "used_web_search": use_web_search,
+            "web_results": web_results,
         }
 
         if return_retrieval_details:

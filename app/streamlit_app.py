@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import streamlit as st
 from src.agent import get_agent
+from src.balance_checker import get_balance_checker
 
 
 # 页面配置
@@ -92,6 +93,26 @@ with st.sidebar:
 
     st.markdown("---")
 
+    # API 用量与余额
+    st.subheader("💰 API 用量")
+    balance_checker = get_balance_checker()
+    initial_balance = st.number_input("初始余额(元)", min_value=0.0, value=10.0, step=1.0, key="init_balance")
+    balance_info = balance_checker.get_balance_info(initial_balance=initial_balance)
+
+    col1, col2 = st.columns(2)
+    with col1:
+        if balance_info["balance"] is not None:
+            st.metric("剩余余额", f"¥{balance_info['balance']:.2f}")
+        else:
+            st.metric("已用费用", f"¥{balance_info['used_cost']:.4f}")
+    with col2:
+        st.metric("调用次数", balance_info["total_calls"])
+
+    st.caption(f"已用 Token: {balance_info['used_tokens']:,}")
+    st.caption(f"输入: {balance_info['prompt_tokens']:,} | 输出: {balance_info['completion_tokens']:,}")
+
+    st.markdown("---")
+
     # 清空知识库
     if st.button("🗑️ 清空知识库", type="secondary"):
         st.session_state.agent.clear_knowledge_base()
@@ -148,6 +169,15 @@ if prompt := st.chat_input("输入你的问题，例如：这篇论文的核心�
                             f"- 章节: {source['section']}\n"
                             f"- 相关度: {source['relevance_score']}"
                         )
+
+            # 联网搜索结果展示
+            if result.get("used_web_search") and result.get("web_results"):
+                with st.expander("🌐 联网搜索结果", expanded=True):
+                    st.info("知识库中未找到足够相关内容，已自动联网搜索补充")
+                    for i, wr in enumerate(result["web_results"], 1):
+                        st.markdown(f"**{i}. [{wr['title']}]({wr['url']})**")
+                        st.caption(wr["snippet"][:200])
+                        st.markdown("---")
 
             # 检索过程可视化
             if result.get("retrieval_details"):
