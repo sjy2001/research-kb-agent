@@ -50,3 +50,9 @@ Thumbs.db
 # 日志
 *.log
 logs/
+
+# Usage stats
+data/usage_stats.json
+
+# Debug files
+debug_screenshot.png
