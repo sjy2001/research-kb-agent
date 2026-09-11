@@ -347,29 +347,34 @@ class ResearchKnowledgeBaseAgent:
             top_score = max(doc.get("score", 0) for doc in unique_docs)
 
         if not unique_docs or top_score < 0.5:
-            # 无关问题：直接返回引导提示，不调用 LLM
-            guide_answer = f"""📚 知识库中未找到与您的问题相关的论文内容。
+            # 无关问题：调用 LLM 智能分析用户问题，生成个性化推荐
+            guide_prompt = f"""用户的问题在当前知识库中没有找到相关论文。
 
-为了更准确地回答您的问题，请提供以下信息：
+用户问题：{question}
 
-**1. 具体的专业名词**
-   - 例如：BERT、Transformer、扩散模型、强化学习等
+请分析这个问题，生成以下内容帮助用户：
 
-**2. 论文名称或作者**
-   - 例如："Attention Is All You Need"、Vaswani 等
+1. **提取核心关键词**：从用户问题中提取3-5个最核心的专业术语（中英文）
+2. **推荐搜索关键词**：推荐5-8个用户可以在学术数据库（Google Scholar、arXiv、知网等）搜索的关键词
+3. **相关研究方向**：指出这个问题属于哪个研究领域，有哪些相关的子方向
+4. **建议上传的论文类型**：建议用户上传什么类型的论文（综述、方法论文、应用论文等）
+5. **知名论文或学者**：如果知道，推荐1-3篇该领域的经典论文或知名学者
 
-**3. 研究方向或领域**
-   - 例如：自然语言处理、计算机视觉、推荐系统等
+格式要求：
+- 用清晰的分点格式
+- 语言简洁专业
+- 最后提醒用户可以在左侧上传相关论文后再提问
 
-**使用建议：**
-- 您可以在左侧上传相关的 PDF/Word/TXT 论文
-- 上传后系统会自动建立索引，即可针对该论文内容提问
-- 提问时尽量使用论文中出现的专业术语
+不要编造不确定的论文信息，如果不确定就说"建议搜索相关关键词查找"。"""
 
-当前知识库中已索引的论文主题主要涉及：大语言模型智能体、推理与规划、具身智能等方向。"""
+            guide_messages = [
+                SystemMessage(content="你是一个科研文献检索助手，擅长分析用户问题并推荐搜索关键词和研究方向。"),
+                HumanMessage(content=guide_prompt)
+            ]
+            guide_response = self.llm.invoke(guide_messages)
 
             result = {
-                "answer": guide_answer,
+                "answer": "📚 知识库中未找到相关论文。根据您的问题，为您推荐以下检索方向：\n\n" + guide_response.content,
                 "sources": [],
                 "retrieved_count": 0,
                 "expanded_queries": expanded_queries,
