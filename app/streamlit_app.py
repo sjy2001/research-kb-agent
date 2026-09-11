@@ -9,7 +9,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import streamlit as st
 from src.agent import get_agent
-from src.balance_checker import get_balance_checker
 
 
 # 页面配置
@@ -90,23 +89,6 @@ with st.sidebar:
                     if result.get("success"):
                         st.success(f"已删除 {result['removed_chunks']} 个文本块")
                         st.rerun()
-
-    st.markdown("---")
-
-    # API 用量与余额
-    st.subheader("💰 API 用量")
-    balance_checker = get_balance_checker()
-    initial_balance = st.number_input("初始余额(元)", min_value=0.0, value=10.0, step=1.0, key="init_balance")
-    balance_info = balance_checker.get_balance_info(initial_balance=initial_balance)
-
-    col1, col2 = st.columns(2)
-    with col1:
-        if balance_info["balance"] is not None:
-            st.metric("剩余余额", f"¥{balance_info['balance']:.2f}")
-        else:
-            st.metric("已用费用", f"¥{balance_info['used_cost']:.4f}")
-    with col2:
-        st.metric("调用次数", balance_info["total_calls"])
 
     st.markdown("---")
 

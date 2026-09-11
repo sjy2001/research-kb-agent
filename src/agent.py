@@ -24,7 +24,6 @@ from .query_expander import QueryExpander
 from .query_rewriter import AcademicQueryRewriter, get_rewriter
 from .document_parser import parse_document, get_supported_extensions
 from .web_search import get_web_searcher
-from .balance_checker import get_balance_checker
 
 
 # ============ 提示词模板 ============
@@ -84,7 +83,6 @@ class ResearchKnowledgeBaseAgent:
         self.query_expander = QueryExpander()
         self.query_rewriter = get_rewriter()
         self.web_searcher = get_web_searcher()
-        self.balance_checker = get_balance_checker()
         # 联网搜索阈值：最高相似度低于此值则触发联网搜索
         self.web_search_threshold = 0.3
 
@@ -368,17 +366,6 @@ class ResearchKnowledgeBaseAgent:
 
         # 5. 调用 LLM
         response = self.llm.invoke(messages)
-
-        # 5.1 记录 token 用量
-        try:
-            usage = response.response_metadata.get("token_usage", {})
-            if usage:
-                self.balance_checker.record_usage(
-                    prompt_tokens=usage.get("prompt_tokens", 0),
-                    completion_tokens=usage.get("completion_tokens", 0),
-                )
-        except Exception:
-            pass
 
         # 6. 整理来源
         sources = self._format_sources(unique_docs)
