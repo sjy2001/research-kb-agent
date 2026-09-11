@@ -347,18 +347,24 @@ class ResearchKnowledgeBaseAgent:
 
         messages.append(HumanMessage(content=user_prompt))
 
-        # 4.5 判断是否需要联网搜索回退（只有完全没有检索结果时才触发）
+        # 4.5 判断是否需要联网搜索回退
+        # 规则：完全没有结果，或最高相似度低于0.3（说明结果不相关），则触发联网搜索
         web_results = []
         use_web_search = False
-        if not unique_docs:
+        top_score = 0.0
+        if unique_docs:
+            top_score = max(doc.get("score", 0) for doc in unique_docs)
+        if not unique_docs or top_score < 0.3:
             use_web_search = True
 
         if use_web_search:
             web_results = self.web_searcher.search(question, max_results=5)
             if web_results:
                 web_context = self.web_searcher.format_for_context(web_results)
-                # 在用户消息中追加联网搜索结果
+                # 联网搜索时，不用知识库的不相关内容，只用搜索结果
                 messages[-1] = HumanMessage(content=user_prompt + "\n\n" + web_context)
+                # 清空来源，因为回答基于联网搜索
+                unique_docs = []
 
         # 5. 调用 LLM
         response = self.llm.invoke(messages)
