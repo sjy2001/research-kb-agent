@@ -149,15 +149,6 @@ if prompt := st.chat_input("输入你的问题，例如：这篇论文的核心�
                             f"- 相关度: {source['relevance_score']}"
                         )
 
-            # 联网搜索结果展示
-            if result.get("used_web_search") and result.get("web_results"):
-                with st.expander("🌐 联网搜索结果", expanded=True):
-                    st.info("知识库中未找到足够相关内容，已自动联网搜索补充")
-                    for i, wr in enumerate(result["web_results"], 1):
-                        st.markdown(f"**{i}. [{wr['title']}]({wr['url']})**")
-                        st.caption(wr["snippet"][:200])
-                        st.markdown("---")
-
             # 检索过程可视化
             if result.get("retrieval_details"):
                 with st.expander("🔍 检索过程详情", expanded=False):

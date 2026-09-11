@@ -23,7 +23,6 @@ from .retriever import HybridRetriever, BM25Retriever, Reranker
 from .query_expander import QueryExpander
 from .query_rewriter import AcademicQueryRewriter, get_rewriter
 from .document_parser import parse_document, get_supported_extensions
-from .web_search import get_web_searcher
 
 
 # ============ 提示词模板 ============
@@ -82,9 +81,6 @@ class ResearchKnowledgeBaseAgent:
         )
         self.query_expander = QueryExpander()
         self.query_rewriter = get_rewriter()
-        self.web_searcher = get_web_searcher()
-        # 联网搜索阈值：最高相似度低于此值则触发联网搜索
-        self.web_search_threshold = 0.3
 
         # 初始化 LLM
         self.llm = ChatOpenAI(
@@ -345,37 +341,6 @@ class ResearchKnowledgeBaseAgent:
 
         messages.append(HumanMessage(content=user_prompt))
 
-        # 4.5 判断是否需要联网搜索回退
-        # 规则1：问题包含"搜索/查一下/联网/百度"等关键词，直接联网搜索
-        # 规则2：完全没有结果，或最高相似度低于0.6（说明结果不相关），触发联网搜索
-        web_results = []
-        use_web_search = False
-        search_keywords = ['搜索', '查一下', '查找', '联网', '百度', 'google', 'bing', '搜一下']
-        if any(kw in question.lower() for kw in search_keywords):
-            use_web_search = True
-        else:
-            top_score = 0.0
-            if unique_docs:
-                top_score = max(doc.get("score", 0) for doc in unique_docs)
-            if not unique_docs or top_score < 0.6:
-                use_web_search = True
-
-        if use_web_search:
-            web_results = self.web_searcher.search(question, max_results=5)
-            if web_results:
-                web_context = self.web_searcher.format_for_context(web_results)
-                # 联网搜索时，完全不用知识库内容，只用搜索结果
-                web_prompt = f"""请基于以下联网搜索结果回答问题。
-
-{web_context}
-
-用户问题：{question}
-
-请回答问题，并在答案中标注信息来源链接。如果搜索结果不足以回答，请说明。"""
-                messages[-1] = HumanMessage(content=web_prompt)
-                # 清空来源，因为回答基于联网搜索
-                unique_docs = []
-
         # 5. 调用 LLM
         response = self.llm.invoke(messages)
 
@@ -387,8 +352,6 @@ class ResearchKnowledgeBaseAgent:
             "sources": sources,
             "retrieved_count": len(unique_docs),
             "expanded_queries": expanded_queries,
-            "used_web_search": use_web_search,
-            "web_results": web_results,
         }
 
         if return_retrieval_details:

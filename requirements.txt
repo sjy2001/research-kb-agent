@@ -26,6 +26,3 @@ python-dotenv>=1.0.0
 pydantic>=2.0.0
 numpy>=1.26.0,<2.0
 tqdm>=4.66.0
-
-# 联网搜索
-requests>=2.28.0
